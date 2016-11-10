@@ -1,11 +1,11 @@
 DUVIDAS PARA OS CLIENTES/PROFESSORES:
 
-1: Quais são os requisitos que a vga cobra de um aluno (curso, periodo e que mais)
+1: Quais são os requisitos que a vaga cobra de um aluno (curso, periodo e que mais)
 2: Clase vaga tem um atributo chamado cursos_procurados que vai ser uma lista de
-objetos tipo curso? Como é que voce quer isso no diagrama?
-3: Tería sentido uma clase lista de vagas? Se precisa de mais de uma losta de vagas?
+objetos tipo curso? Como é que voce quer isso no diagrama? 
+3: Tería sentido uma clase lista de vagas? Se precisa de mais de uma lista de vagas? NÃO
 4: Poder ser que uma mesma oferta de vaga este procurando mais de um aluno?
-5: Quando usar metodo e quando usar função externa?
+5: Quando usar método e quando usar função externa?
 6: Será que a gente pode convertir estas duvidas em issues no GitHub( da ate pra
 mencionar aos professores.
 7: Como implementar da melhor forma o caso de uso escolher candidato
