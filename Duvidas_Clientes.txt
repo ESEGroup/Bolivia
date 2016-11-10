@@ -1,4 +1,4 @@
-DUVIDAS PARA OS CLIENTES/PROFESSORES:
+﻿DUVIDAS PARA OS CLIENTES/PROFESSORES:
 
 1: Quais são os requisitos que a vga cobra de um aluno (curso, periodo e que mais)
 2: Clase vaga tem um atributo chamado cursos_procurados que vai ser uma lista de
@@ -9,4 +9,4 @@ objetos tipo curso? Como é que voce quer isso no diagrama?
 6: Será que a gente pode convertir estas duvidas em issues no GitHub( da ate pra
 mencionar aos professores.
 7: Como implementar da melhor forma o caso de uso escolher candidato
-8: Esta duvida ja foi resolvida
+8: Esta duvida ja foi resolvida (Fabio)
