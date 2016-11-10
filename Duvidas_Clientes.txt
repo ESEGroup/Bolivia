@@ -9,3 +9,4 @@ objetos tipo curso? Como é que voce quer isso no diagrama?
 6: Será que a gente pode convertir estas duvidas em issues no GitHub( da ate pra
 mencionar aos professores.
 7: Como implementar da melhor forma o caso de uso escolher candidato
+8: Nova duvida
