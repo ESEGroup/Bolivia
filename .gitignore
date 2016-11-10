@@ -1,0 +1,3 @@
+#Arquivos a ser ignorados pelo GitHub
+
+.DS_Store
