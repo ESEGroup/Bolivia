@@ -1,0 +1,23 @@
+How to use GitHub on Wlan_DEL:
+
+1. Open terminal
+2. execute: vim ~/.bash_profile
+3. Ctrl-C Ctrl-V there the folowing script:
+
+switch_proxy() {
+    PROXY_DEL="146.164.70.1:3128"
+    if [ "$( git config --global --get http.proxy )" = $PROXY_DEL ]
+    then
+        git config --global --unset http.proxy
+        echo "Mals, desliguei o proxy. Pode usar o git en uma red diferente de Wlan-DEL!"
+
+
+    else
+        git config --global http.proxy $PROXY_DEL
+        echo "Mals, liguei o proxy. Pode usar o git na  Wlan-DEL!"
+    fi
+}
+
+4. Type: ESC, :wq, RETURN to exit
+5. Reboot terminal
+6. Now you only to excute: switch_proxy everytime you want to use WLAN-DEL or another connection
