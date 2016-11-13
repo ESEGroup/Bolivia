@@ -1,0 +1,235 @@
+<html>
+ <head>
+    <title>SISTEM DE BOSLSAS DE ESTÁGIO</title>
+  </head>
+  <body style="background-color:#DBECE4;">	
+	<style type='text/css'>
+		#bar {
+		position: fixed !important;
+		background: #04B486;
+		width: 100%;
+		height: 50px;
+		z-index: 300;
+		top:0px; padding:0;
+		left: 0px;
+		font-family: UBUNTU;
+		}
+		#caixa {
+		width:50%;
+		height:auto;
+		padding:8px;
+		background-color:#F4FCF9;
+		box-shadows:10 2px 5px #000;
+		text-align:justify;
+		float:middle;
+		}
+		#caixa:hover{
+		width:50%;
+		height:auto;
+		padding:8px;
+		background-color:#DFE4E2;
+		box-shadows:10 2px 5px #000;
+		text-align:justify;
+		}
+		.menubar {
+		position:absolute;
+		float: hight;
+		top:10px;
+		left:40%;
+		margin-left: 35%;
+		color:#FFA;
+		font-size:14px;
+		font-family: UBUNTU;
+		font-style: normal;
+		font-weight: 300;
+		box-shadow:0 0 3px rgba(48, 62, 100, 0.2);
+		}
+		.menubar a {
+		text-decoration:none;
+		color: #FFF;
+		top: 0px;
+		padding-top:7px;
+		padding-bottom:7px;
+		padding-left:12px;
+		padding-right:12px;
+		}
+		.menubar a:hover {
+		text-decoration:underline;
+		background:rgba(48, 62, 100, 0.2);
+		top: 0px;
+		padding-top:7px;
+		padding-bottom:10px;
+		padding-left:12px;
+		padding-right:12px;
+		}
+		#pagelogo {
+		float: left;
+		z-index: 5;
+		}
+		B {
+		font: UBUNTU;
+		font-size: 20px;
+		color: #FFF;
+		margin-top: 6px;
+		margin-left: 50px;
+		}
+	</style>
+	<div id='bar'>
+		<table align="left">
+			<td align="left">
+				<a href="./login_br.html" title="P&aacute;gina em Portugu&ecirc;s">
+					<img src="./images/buttonBrazil.png" width=25px>
+				</a>
+				<a href="./login_en.html" title="Page in English">
+					<img src="./images/buttonUSA.png" width=25px>
+				</a>
+				<a href="./login_sp.html" title="P&aacute;gina en Espa&ntilde;ol">
+					<img src="./images/buttonSpain.png" width=25px>
+				</a>
+				<a href="./login_it.html" title="Pagina in Italiano">
+					<img src="./images/buttonItaly.png" width=25px>
+				</a>
+			</td>
+			<td align="center">
+				<a href="./login_br.html" title="MinervApply">
+					<img src="./images/MinervApply05.png" width=45px> 
+				</a>
+			</td>
+		</table>
+		<table align="right">
+			<form action="./loged_br.html" method="post">
+			   <td align="left">
+				<font color="white" face="UBUNTU" size="2">
+				Usu&aacute;rio
+				</font>
+			   </td>
+			   <td align="left">
+				<font color="white" face="UBUNTU" size="2">
+				 Senha
+				</font>
+			   </td>
+			   <tr>
+			   <td align="left">
+				<font color="black" face="UBUNTU" size="2">
+				 <input type="email" name="emailLogin" maxlength="257" size="25" placeholder="usuario@poli.ufrj.br" required>
+				</font>
+			   </td>
+			   <td align="left">
+				<font color="black" face="UBUNTU" size="2">
+				 <input type="password" name="senhaLogin" maxlength="129" size="25" placeholder= "Password"required>
+				</font>
+			   </td>
+			   <td colspan="2" align="left">
+				<font color="white" face="UBUNTU" size="2">
+				 <input type="submit" value="Entrar">
+				</font>
+			   </td>
+			   <tr>
+			  </form>
+		</table>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div>
+		<table align="left">
+			<td align="left">
+				<font color="04B486" face="UBUNTU" size="+3">
+				Cadastro
+				</font>
+			  </td>
+			   <tr>
+			   <tr>
+				<form action="./cadastro_br.html" method="post">
+				<td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Identifica&ccedil;&atilde;o
+				</font>
+			   </td>
+				<td align="right">
+				<font color="black" face="UBUNTU" size="3">
+				 <input type="text" name="dreCadastro" maxlength="257" size="25" placeholder="DRE / Id. Professor" required>
+				</font>
+			   </td>
+			   <tr>
+				<td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Nome Completo
+				</font>
+			   </td>
+				<td align="right">
+				<font color="black" face="UBUNTU" size="3">
+				 <input type="text" name="nomeCadastro" maxlength="257" size="25" placeholder="Nome Completo" required>
+				</font>
+			   </td>
+			   <tr>
+			   <td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Curso
+				</font>
+			   </td>
+				<td align="right">
+				<font color="black" face="UBUNTU" size="3">
+				 <input type="text" name="cursoCadastro" maxlength="257" size="25" placeholder="Curso">
+				</font>
+			   </td>
+			   <tr>
+			   <td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Per&iacute;odo
+				</font>
+			   </td>
+				<td align="right">
+				<font color="black" face="UBUNTU" size="3">
+				 <input type="text" name="nomeCadastro" maxlength="257" size="25" placeholder="Per&iacute;odo">
+				</font>
+			   </td>
+			   <tr>
+				<td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Email
+				</font>
+			   </td>
+				<td align="right">
+				<font color="04B486" face="UBUNTU" size="3">
+				 <input type="email" name="emailCadastro" maxlength="257" size="25" placeholder="usuario@poli.ufrj.br" required>
+				</font>
+			   </td>
+			   <tr>
+			   <td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Senha
+				</font>
+			   </td>
+			   <td align="right">
+				<font color="04B486" face="UBUNTU" size="3">
+				 <input type="password" name="senhaCadastro" maxlength="129" size="25" placeholder= "Senha" required>
+				</font>
+			   </td>
+			   <tr>
+			   <td align="left">
+				<font color="04B486" face="UBUNTU" size="3">
+				Telefone
+				</font>
+			   </td>
+			   <td align="right">
+				<font color="04B486" face="UBUNTU" size="3">
+				 <input type="text" name="telefoneCadastro" maxlength="129" size="25" placeholder= "Telefone" required>
+				</font>
+			   </td>
+			   <tr>
+			   <td colspan="2" align="center">
+				<font color="white" face="UBUNTU" size="4">
+				 <input type="submit" value="Cadastrar-se">
+				</font>
+			   </td>
+			   </form>
+		 </table>
+		 <table align="center">
+		 	<td align="right">
+		 		<img src="./images/MinervApply02.png" width=70%>
+		 	</td>
+		 </table>
+	</div>
+   </body>
+  </html>
