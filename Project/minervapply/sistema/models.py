@@ -12,7 +12,7 @@ class Professor(models.Model):
     url = models.URLField(default='www.default.com')
     chefe_departamento = models.BooleanField(default=False)
     #lista_vagas_divulgadas = CommaSeparatedIntegerField(max_length=200)
-    
+
     def __str__(self):
         return self.nome
 
@@ -71,6 +71,9 @@ class Vaga(models.Model):
         self.tipo=tipo
         self.professor_responsavel=professor_responsavel
         self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)"""
+    """def get_fields(self):
+        return []"""
+
 
     def __str__(self):
         return self.titulo
