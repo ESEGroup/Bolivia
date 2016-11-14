@@ -78,6 +78,9 @@ class Vaga(models.Model):
     def __str__(self):
         return self.titulo
 
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Vaga._meta.fields]
+
 
     def add_to_database(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
         vaga = Vaga.object.get_or_create(disponilidade=disponibilidade,
