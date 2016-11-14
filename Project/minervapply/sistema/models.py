@@ -62,13 +62,13 @@ class Vaga(models.Model):
         self.prazo_de_aplicacao=prazo_de_aplicacao
         self.tipo=tipo
         self.professor_responsavel=professor_responsavel
-        self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)
+        self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)"""
 
     def add_to_database(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
         vaga = Vaga.object.get_or_create(disponilidade=disponibilidade,
                                         remuneracao=remuneracao,local=local,
                                         prazo_de_aplicacao=prazo_de_aplicacao,
-                                        tipo=tipo,professor_responsavel=professor_responsavel)"""
+                                        tipo=tipo,professor_responsavel=professor_responsavel)
 
     def desativar_apos_selecao(self):
         self.disponibilidade=False
