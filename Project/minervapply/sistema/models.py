@@ -10,9 +10,27 @@ class Professor(models.Model):
     telefone = models.CharField(max_length=20)
     url = models.URLField()
     chefe_departamento = models.BooleanField(default=False)
+    #lista_vagas_divulgadas = CommaSeparatedIntegerField(max_length=200)
+
+"""    def __init__(self,nome,registro_ufrj,idade,departamento,email,telefone,url,chefe_departamento):
+        self.nome=nome
+        self.registro_ufrj=registro_ufrj
+        self.idade=idade
+        self.departamento=departamento
+        self.email=email
+        self.telefone=telefone
+        self.url=url
+        self.chefe_departamento=chefe_departamento
+        #self.lista_vagas_divulgadas=lista_vagas_divulgadas
 
     def edit_personal_info(self, novo_nome):
-        self.nome=novo_nome
+        pass
+
+    def lista_vagas_divulgadas(self):
+        #buscar na database vagas com o mesmo id do professor_responsavel
+        pass"""
+
+
 
 
 class Vaga(models.Model):
@@ -32,17 +50,33 @@ class Vaga(models.Model):
     local = models.CharField(max_length=200)
     prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
+    #professor_responsavel= models.ForeignKey('Professor')
 
-#este metodo eh soh pra testar!
-    def retorna_local(self):
-        return self.local
+    """def __init__(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
+        self.divulgar(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)
+
+    def divulgar(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
+        self.disponilidade=disponilidade
+        self.remuneracao=remuneracao
+        self.local=local
+        self.prazo_de_aplicacao=prazo_de_aplicacao
+        self.tipo=tipo
+        self.professor_responsavel=professor_responsavel
+        self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)
+
+    def add_to_database(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
+        vaga = Vaga.object.get_or_create(disponilidade=disponibilidade,
+                                        remuneracao=remuneracao,local=local,
+                                        prazo_de_aplicacao=prazo_de_aplicacao,
+                                        tipo=tipo,professor_responsavel=professor_responsavel)"""
 
     def desativar_apos_selecao(self):
         self.disponibilidade=False
+        self.save()
 
     def reativar(self):
         self.disponibilidade=True
-
+        self.save()
 
 
 
