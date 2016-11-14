@@ -1,16 +1,22 @@
 from django.db import models
 from django.utils import timezone
+from datetime import date
 
 class Professor(models.Model):
-    nome = models.CharField(max_length=100)
-    registro_ufrj = models.CharField(max_length=8)
-    idade = models.PositiveIntegerField()
-    departamento = models.CharField(max_length=200)
-    email = models.EmailField()
-    telefone = models.CharField(max_length=20)
-    url = models.URLField()
+    nome = models.CharField(max_length=100, default='nome')
+    registro_ufrj = models.CharField(max_length=8, default='000000-0')
+    idade = models.PositiveIntegerField(default=0)
+    departamento = models.CharField(max_length=200, default='nome_departamento')
+    email = models.EmailField(default='email@email.com')
+    telefone = models.CharField(max_length=20,default='0000-0000')
+    url = models.URLField(default='www.default.com')
     chefe_departamento = models.BooleanField(default=False)
     #lista_vagas_divulgadas = CommaSeparatedIntegerField(max_length=200)
+    
+    def __str__(self):
+        return self.nome
+
+
 
 """    def __init__(self,nome,registro_ufrj,idade,departamento,email,telefone,url,chefe_departamento):
         self.nome=nome
@@ -33,6 +39,7 @@ class Professor(models.Model):
 
 
 
+
 class Vaga(models.Model):
     IC='IC'
     ESTAGIO_EXT = 'EE'
@@ -44,13 +51,14 @@ class Vaga(models.Model):
         (ESTAGIO_INT, 'Estagio interno'),
         (PROJETO,'Projeto')
     )
-
+    titulo = models.CharField(max_length=200, default='Titulo Vaga')
     disponibilidade = models.BooleanField(default=True)
     remuneracao = models.FloatField(default=0)
-    local = models.CharField(max_length=200)
-    prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False)
+    local = models.CharField(max_length=200,default='local')
+    #data_publicacao = models.DateTimeField(auto_now=True,auto_now_add=False)
+    prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False,default=date.today())
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
-    #professor_responsavel= models.ForeignKey('Professor')
+    professor_responsavel= models.ForeignKey('Professor', on_delete=models.CASCADE, default=0)
 
     """def __init__(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
         self.divulgar(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)
@@ -63,6 +71,10 @@ class Vaga(models.Model):
         self.tipo=tipo
         self.professor_responsavel=professor_responsavel
         self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)"""
+
+    def __str__(self):
+        return self.titulo
+
 
     def add_to_database(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
         vaga = Vaga.object.get_or_create(disponilidade=disponibilidade,
