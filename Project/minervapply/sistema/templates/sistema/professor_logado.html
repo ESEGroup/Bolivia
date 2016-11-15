@@ -104,9 +104,9 @@
 			<table align="left">
 				<td align="right">
 					<font color="white" face="UBUNTU" size="+1">
-						<a href="./ofertarVaga_br.html" title="Crie uma nova oferta de vaga">
-							Ofertar Vaga
-						</a>
+            <a href="{% url 'adicionar-vaga' professor.nome %}">
+              Ofertar Vaga
+            </a>
 					</font>
 				</td>
 			</table>
@@ -159,13 +159,13 @@
   			<tr>
   			<td align="left">
   				<font color="#04B486" face="UBUNTU" size="+1">
-  					...
+  				{{vaga.professor_responsavel}}
   				</font>
   			</td>
   			<tr>
   			<td align="left">
   				<font color="#04B486" face="UBUNTU" size="+1">
-  					...
+  					{{vaga.prazo_de_aplicacao}}
   				</font>
   			</td>
   			<tr>
@@ -182,7 +182,7 @@
   			<tr>
   			<td align="left">
   				<font color="#04B486" face="UBUNTU" size="+1">
-  					{{vaga.remuneracao}}
+  					R${{vaga.remuneracao}}
   				</font>
   			</td>
   			<script>

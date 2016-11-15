@@ -1,0 +1,154 @@
+{% load static %}
+
+<html>
+
+<head>
+    <title>Minervapply - ofertar vaga</title>
+</head>
+
+<body style="background-color:#DBECE4;">
+    <style type='text/css'>
+        #bar {
+            position: fixed !important;
+            background: #04B486;
+            width: 100%;
+            height: 50px;
+            z-index: 300;
+            top: 0px;
+            padding: 0;
+            left: 0px;
+            font-family: UBUNTU;
+        }
+
+        #caixa {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #F4FCF9;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+            float: middle;
+        }
+
+        #caixa:hover {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #DFE4E2;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+        }
+
+        .menuIcon {
+            position: absolute;
+            float: hight;
+            top: 0px;
+            margin-left: 10%;
+        }
+
+        .menubar {
+            position: absolute;
+            float: hight;
+            top: 10px;
+            left: 40%;
+            margin-left: 35%;
+            color: #FFA;
+            font-size: 14px;
+            font-family: UBUNTU;
+            font-style: normal;
+            font-weight: 300;
+            box-shadow: 0 0 3px rgba(48, 62, 100, 0.2);
+        }
+
+        .menubar a {
+            text-decoration: none;
+            color: #FFF;
+            top: 0px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .menubar a:hover {
+            text-decoration: underline;
+            background: rgba(48, 62, 100, 0.2);
+            top: 0px;
+            padding-top: 7px;
+            padding-bottom: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #pagelogo {
+            float: left;
+            z-index: 5;
+        }
+
+        B {
+            font: UBUNTU;
+            font-size: 20px;
+            color: #FFF;
+            margin-top: 6px;
+            margin-left: 50px;
+        }
+    </style>
+    <div id='bar'>
+        <span class='menuIcon'>
+			<table align="left">
+				<td align="left">
+					<a href="./prof_loged_br.html" title="MinervApply">
+						<img src="{% static "sistema/MinervApply05.png" %}" width=40px>
+					</a>
+				</td>
+				<td align="left">
+					<form action="./search_br.html" class="search" method="get">
+						<font color="black" face="UBUNTU" size="5">
+							<input class="searchbar" id="search" name="quest" type="text" value="" size=30% placeholder="Pesquisar Usu&aacute;rio">
+							<input class="searchbut" type="submit" value="&#8227;" />
+						</font>
+					</form>
+				</td>
+			</table>
+		</span>
+        <span class='menubar'>
+		<table align="left">
+				<td align="right">
+					<font color="white" face="UBUNTU" size="+1">
+            <a href="{% url 'professor-logado' 'Ticiana' %}" title="Retorne &agrave; p&aacute;gina inicial">
+							Home
+						</a>
+					</font>
+				</td>
+			 </table>
+		<table align="right">
+				<td align="right">
+					<font color="white" face="UBUNTU" size="+1">
+						<a href="./home_br.html" title="Fa&ccedil;a Logout da sua conta">
+							Sair
+						</a>
+					</font>
+				</td>
+			 </table>
+		</span>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div>
+                <font color="04B567" face="UBUNTU" size="3">
+                    <form align="center" action="" method="post"> {% csrf_token %}
+                      {{ form.as_p }}
+                        <input type="submit" value="Ofertar vaga" />
+                    </form>
+                </font>
+
+    </div>
+</body>
+
+</html>
