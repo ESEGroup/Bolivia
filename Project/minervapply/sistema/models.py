@@ -55,8 +55,8 @@ class Vaga(models.Model):
     disponibilidade = models.BooleanField(default=True)
     remuneracao = models.FloatField(default=0)
     local = models.CharField(max_length=200,default='local')
-    #data_publicacao = models.DateTimeField(auto_now=True,auto_now_add=False)
-    prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False,default=date.today())
+    data_publicacao = models.DateTimeField(auto_now=False, auto_now_add=False, default=date.today())
+    prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False, default=date.today())
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel= models.ForeignKey('Professor', on_delete=models.CASCADE, default=0)
 

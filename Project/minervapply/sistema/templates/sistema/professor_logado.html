@@ -1,3 +1,5 @@
+{% load static %}
+
 <html>
  <head>
     <title>SISTEM DE BOSLSAS DE ESTÁGIO</title>
@@ -84,8 +86,8 @@
 		<span class='menuIcon'>
 			<table align="left">
 				<td align="left">
-					<a href="./prof_loged_br.html" title="MinervApply">
-						<img src="./images/MinervApply05.png" width=40px>
+					<a href="./professor_logado.html" title="MinervApply">
+						<img src="{% static "sistema/MinervApply05.png" %}"width=40px>
 					</a>
 				</td>
 				<td align="left">
@@ -131,63 +133,66 @@
 	<br>
 	<br>
 	<br>
-	<div>
-		<table align="center" id='caixa'>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+2">
-          {{lista_vagas}}
-				</font>
-			</td>
-			<td align="right">
-				<img src="./images/poli.png" width=70px>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					Bolsa na Poli
-				</font>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					Na &aacute;rea tal
-				</font>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					No local tal
-				</font>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					No hor&aacute;rio tal
-				</font>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					No per&iacute;odo tal
-				</font>
-			</td>
-			<td align="right">
-				<a href="./Bolsa01_candidatos_br.html" title="Visualize os candidatos &agrave; essa vaga">
-					<input type="button" value="Visualizar Candidatos">
-				</a>
-			</td>
-			<tr>
-			<td align="left">
-				<font color="#04B486" face="UBUNTU" size="+1">
-					No valor tal
-				</font>
-			</td>
-			<script>
-				function funcaoBolsa1()
-				{
-				confirm("Confirmar a exclusao da Bolsa 01?");
-				}
-			</script>
+  {% for vaga in lista_vagas %}
+  	<div>
+  		<table align="center" id='caixa'>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+2">
+            {{vaga.titulo}}
+  				</font>
+  			</td>
+  			<td align="right">
+  				<img src="{% static "sistema/poli.png" %}" width=70px>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					{{vaga.tipo}}
+  				</font>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					{{vaga.local}}
+  				</font>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					...
+  				</font>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					...
+  				</font>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					...
+  				</font>
+  			</td>
+  			<td align="right">
+  				<a href="./Bolsa01_candidatos_br.html" title="Visualize os candidatos &agrave; essa vaga">
+  					<input type="button" value="Visualizar Candidatos">
+  				</a>
+  			</td>
+  			<tr>
+  			<td align="left">
+  				<font color="#04B486" face="UBUNTU" size="+1">
+  					{{vaga.remuneracao}}
+  				</font>
+  			</td>
+  			<script>
+  				function funcaoBolsa1()
+  				{
+  				confirm("Confirmar a exclusao da Bolsa 01?");
+  				}
+  			</script>
+    {% endfor %}
+
 <!--<script>
 function funcaoBolsa1()
 {
@@ -206,7 +211,7 @@ document.getElementById("demo").innerHTML=x;
 </script>-->
 
 
-			<td align="right">
+		<!--	<td align="right">
 				<a href="./prof_loged_br.html" title="Confirme o seu cadastro nesta vaga">
 					<input type="button" onclick="funcaoBolsa1()" value="Excluir Bolsa" />
 				</a>

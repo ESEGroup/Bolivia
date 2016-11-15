@@ -13,4 +13,4 @@ def professor_logado(request,nome_professor):
     return render(request, 'sistema/professor_logado.html', context)
 
 def formulario_vaga(request,nome_professor):
-    return HttpResponse('Insira os dados da vaga:')
+    return render(request,'sistema/ofertarVaga_br.html',{})
