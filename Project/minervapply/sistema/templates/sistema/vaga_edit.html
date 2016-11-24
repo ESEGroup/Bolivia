@@ -1,0 +1,21 @@
+ {% extends "sistema/base.html" %}
+ {% load staticfiles%}
+
+ {% block title %}Minervapply-Editar vaga{% endblock %}
+
+ {% block content %}
+
+
+<form align="center" action="" method="post"> {% csrf_token %} {{ form.as_p }}
+    <input type="submit" value="Atualizar vaga" />
+</form>
+<br>
+<p align="center">
+    <a href="{% url 'apagar-vaga' 'Ticiana' 5 %}" title="Apagar esta Vaga">
+        <input type="button" value="Apagar vaga">
+    </a>
+</p>
+
+
+
+{% endblock %}

@@ -23,16 +23,18 @@ def professor_logado(request,nome_professor):
 
 class Criar_Vaga(CreateView):
     model = Vaga
+    template_name_suffix = '_create'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     context_object_name = "lista_vagas_professor"
     success_url = reverse_lazy('professor-logado', args = ['Ticiana'])
-    def get_professor(self):
-        return self.kwargs['nome_professor']
+    """def get_professor(self):
+        return self.kwargs['nome_professor']"""
 
 
 
 class Atualizar_Vaga(UpdateView):
     model = Vaga
+    template_name_suffix = '_edit'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     success_url = reverse_lazy('professor-logado',args = ['Ticiana'])
 
@@ -41,5 +43,5 @@ class Atualizar_Vaga(UpdateView):
 class Apagar_Vaga(DeleteView):
     model = Vaga
     success_url = reverse_lazy('professor-logado',args = ['Ticiana'])
-    def get_professor(self):
-        return self.kwargs['nome_professor']
+    """def get_professor(self):
+        return self.kwargs['nome_professor']"""
