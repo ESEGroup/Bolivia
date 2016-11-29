@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'sistema',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sistema',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -100,7 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'home'
+
+LOGIN_REDIRECT_URL = '/login'
+LOGIN_URL= '/login'
 
 
 # Internationalization

@@ -11,11 +11,9 @@
 </form>
 <br>
 <p align="center">
-    <a href="{% url 'apagar-vaga' 'Ticiana' 5 %}" title="Apagar esta Vaga">
+    <a href="{% url 'apagar-vaga' vaga.id %}" title="Apagar esta Vaga">
         <input type="button" value="Apagar vaga">
     </a>
 </p>
-
-
 
 {% endblock %}

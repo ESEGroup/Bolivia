@@ -1,40 +1,24 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from datetime import date
+from django.contrib.auth.models import AbstractUser
 
 class Professor(models.Model):
-    nome = models.CharField(max_length=100, default='nome')
-    registro_ufrj = models.CharField(max_length=8, default='000000-0')
-    idade = models.PositiveIntegerField(default=0)
-    departamento = models.CharField(max_length=200, default='nome_departamento')
-    email = models.EmailField(default='email@email.com')
-    telefone = models.CharField(max_length=20,default='0000-0000')
-    url = models.URLField(default='www.default.com')
-    chefe_departamento = models.BooleanField(default=False)
-    #lista_vagas_divulgadas = CommaSeparatedIntegerField(max_length=200)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    #nome = models.CharField(max_length=100, default='nome')
+    # registro_ufrj = models.CharField(max_length=8, default='000000-0')
+    # idade = models.PositiveIntegerField(default=0)
+    # departamento = models.CharField(max_length=200, default='nome_departamento')
+    # email = models.EmailField(default='email@email.com')
+    # telefone = models.CharField(max_length=20,default='0000-0000')
+    # url = models.URLField(default='www.default.com')
+    # chefe_departamento = models.BooleanField(default=False)
+    # #lista_vagas_divulgadas = CommaSeparatedIntegerField(max_length=200)
 
     def __str__(self):
-        return self.nome
+        return self.user.username
 
-
-
-"""    def __init__(self,nome,registro_ufrj,idade,departamento,email,telefone,url,chefe_departamento):
-        self.nome=nome
-        self.registro_ufrj=registro_ufrj
-        self.idade=idade
-        self.departamento=departamento
-        self.email=email
-        self.telefone=telefone
-        self.url=url
-        self.chefe_departamento=chefe_departamento
-        #self.lista_vagas_divulgadas=lista_vagas_divulgadas
-
-    def edit_personal_info(self, novo_nome):
-        pass
-
-    def lista_vagas_divulgadas(self):
-        #buscar na database vagas com o mesmo id do professor_responsavel
-        pass"""
 
 
 
@@ -58,21 +42,7 @@ class Vaga(models.Model):
     data_publicacao = models.DateTimeField(auto_now=False, auto_now_add=False, default=timezone.now())
     prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False, default=date.today())
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
-    professor_responsavel= models.ForeignKey('Professor', on_delete=models.CASCADE, default=0)
-
-    """def __init__(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
-        self.divulgar(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)
-
-    def divulgar(self,disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel):
-        self.disponilidade=disponilidade
-        self.remuneracao=remuneracao
-        self.local=local
-        self.prazo_de_aplicacao=prazo_de_aplicacao
-        self.tipo=tipo
-        self.professor_responsavel=professor_responsavel
-        self.add_to_database(disponilidade,remuneracao,local,prazo_de_aplicacao,tipo,professor_responsavel)"""
-    """def get_fields(self):
-        return []"""
+    professor_responsavel= models.ForeignKey('Professor', null=True, blank=True)
 
 
     def __str__(self):

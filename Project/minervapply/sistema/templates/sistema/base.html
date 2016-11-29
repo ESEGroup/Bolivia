@@ -1,92 +1,103 @@
 {% load static %}
 
 <html>
- <head>
+
+<head>
     <title>{% block title %}{% endblock %}</title>
-  </head>
-  <body style="background-color:#DBECE4;">
-	<style type='text/css'>
-		#bar {
-		position: fixed !important;
-		background: #04B486;
-		width: 100%;
-		height: 50px;
-		z-index: 300;
-		top:0px; padding:0;
-		left: 0px;
-		font-family: UBUNTU;
-		}
-		#caixa {
-		width:50%;
-		height:auto;
-		padding:8px;
-		background-color:#F4FCF9;
-		box-shadows:10 2px 5px #000;
-		text-align:justify;
-		float:middle;
-		}
-		#caixa:hover{
-		width:50%;
-		height:auto;
-		padding:8px;
-		background-color:#DFE4E2;
-		box-shadows:10 2px 5px #000;
-		text-align:justify;
-		}
-		.menuIcon {
-		position:absolute;
-		float: hight;
-		top:0px;
-		margin-left: 10%;
-		}
-		.menubar {
-		position:absolute;
-		float: hight;
-		top:10px;
-		left:30%;
-		margin-left: 35%;
-		color:#FFA;
-		font-size:14px;
-		font-family: UBUNTU;
-		font-style: normal;
-		font-weight: 300;
-		box-shadow:0 0 3px rgba(48, 62, 100, 0.2);
-		}
-		.menubar a {
-		text-decoration:none;
-		color: #FFF;
-		top: 0px;
-		padding-top:7px;
-		padding-bottom:7px;
-		padding-left:12px;
-		padding-right:12px;
-		}
-		.menubar a:hover {
-		text-decoration:underline;
-		background:rgba(48, 62, 100, 0.2);
-		top: 0px;
-		padding-top:7px;
-		padding-bottom:10px;
-		padding-left:12px;
-		padding-right:12px;
-		}
-		#pagelogo {
-		float: left;
-		z-index: 5;
-		}
-		B {
-		font: UBUNTU;
-		font-size: 20px;
-		color: #FFF;
-		margin-top: 6px;
-		margin-left: 50px;
-		}
-	</style>
-	<div id='bar'>
-		<span class='menuIcon'>
+</head>
+
+<body style="background-color:#DBECE4;">
+    <style type='text/css'>
+        #bar {
+            position: fixed !important;
+            background: #04B486;
+            width: 100%;
+            height: 50px;
+            z-index: 300;
+            top: 0px;
+            padding: 0;
+            left: 0px;
+            font-family: UBUNTU;
+        }
+
+        #caixa {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #F4FCF9;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+            float: middle;
+        }
+
+        #caixa:hover {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #DFE4E2;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+        }
+
+        .menuIcon {
+            position: absolute;
+            float: hight;
+            top: 0px;
+            margin-left: 10%;
+        }
+
+        .menubar {
+            position: absolute;
+            float: hight;
+            top: 10px;
+            left: 30%;
+            margin-left: 35%;
+            color: #FFA;
+            font-size: 14px;
+            font-family: UBUNTU;
+            font-style: normal;
+            font-weight: 300;
+            box-shadow: 0 0 3px rgba(48, 62, 100, 0.2);
+        }
+
+        .menubar a {
+            text-decoration: none;
+            color: #FFF;
+            top: 0px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .menubar a:hover {
+            text-decoration: underline;
+            background: rgba(48, 62, 100, 0.2);
+            top: 0px;
+            padding-top: 7px;
+            padding-bottom: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #pagelogo {
+            float: left;
+            z-index: 5;
+        }
+
+        B {
+            font: UBUNTU;
+            font-size: 20px;
+            color: #FFF;
+            margin-top: 6px;
+            margin-left: 50px;
+        }
+    </style>
+    <div id='bar'>
+        <span class='menuIcon'>
 			<table align="left">
 				<td align="left">
-					<a href="{% url 'professor-logado' 'Ticiana' %}" > <!--professor.nome -->
+					<a href="{% url 'professor-logado' %}" >
 						<img src="{% static "sistema/MinervApply05.png" %}"width=40px>
 					</a>
 				</td>
@@ -100,11 +111,11 @@
 				</td>
 			</table>
 		</span>
-		<span class='menubar'>
+        <span class='menubar'>
 			<table align="left">
 				<td align="right">
 					<font color="white" face="UBUNTU" size="+1">
-            <a href="{% url 'adicionar-vaga' 'Ticiana' %}" > <!--professor.nome -->
+            <a href="{% url 'adicionar-vaga'%}" >
               Ofertar Vaga
             </a>
 					</font>
@@ -114,7 +125,12 @@
 				<td align="right">
 					<font color="white" face="UBUNTU" size="+1">
 						<a href="./perfilAlterar_Profesore01.html" title="Exibir o seu perfil">
-							{{ 'Ticiana' }} <!--professor.nome -->
+              {{ user }}
+            {% if user.is_anonymous %}
+      <a href="{% url 'login' %}">login</a>
+      {% else %}
+      <a href="{% url 'logout' %}">logout</a>
+      {% endif %}
 						</a>
 					</font>
 				</td>
@@ -129,11 +145,10 @@
 				</td>
 			</table>
 		</span>
-	</div>
-	<br>
-	<br>
-	<br>
-      {% block content %}
-      {% endblock %}
-   </body>
-  </html>
+    </div>
+    <br>
+    <br>
+    <br> {% block content %} {% endblock %}
+</body>
+
+</html>

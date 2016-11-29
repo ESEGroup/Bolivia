@@ -1,4 +1,8 @@
-{% extends "sistema/base.html" %} {% load static%} {% block title %}Minervapply-Index vagas{% endblock %} {% block content %} {% for vaga in lista_vagas %}
+{% extends "sistema/base.html" %} {% load static%} {% block title %}Minervapply-Index vagas{% endblock %}
+
+{% block content %}
+
+{% for vaga in object_list %}
 <div>
 
     <table align="center" id='caixa'>
@@ -9,7 +13,7 @@
                 </font>
             </td>
             <td align="right">
-                <a href="{% url 'atualizar-vaga' 'Ticiana' 5 %}" title="Editar a vaga ">
+                <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
                     <input type="button" value="Editar Vaga">
                 </a>
             </td>
