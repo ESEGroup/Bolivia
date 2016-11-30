@@ -1,4 +1,8 @@
-{% extends "sistema/base.html" %} {% load static%} {% block title %}Minervapply-Index vagas{% endblock %}
+{% extends "sistema/base.html" %}
+
+{% load static%} 
+
+{% block title %}Minervapply-Index vagas{% endblock %}
 
 {% block content %}
 
@@ -12,11 +16,14 @@
                     {{vaga.titulo}}
                 </font>
             </td>
+            {% if  not user.is_anonymous %}
             <td align="right">
                 <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
                     <input type="button" value="Editar Vaga">
                 </a>
             </td>
+            {% endif %}
+
         </tr>
 
         <tr>

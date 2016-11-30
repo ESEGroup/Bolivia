@@ -9,10 +9,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
+class TelaInicial(ListView):
+    model = Vaga
+    template_name = 'sistema/lista_vagas.html'
 
 class ProfessorLogado(ListView):
     model = Vaga
-    template_name = 'sistema/professor_logado.html'
+    template_name = 'sistema/vaga_list.html'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -20,7 +23,7 @@ class ProfessorLogado(ListView):
 
     def get_queryset(self):
         return Vaga.objects.filter(professor_responsavel=self.request.user.professor)
-    
+
 
 
 # class VagaView(DetailView):
@@ -35,9 +38,14 @@ class Criar_Vaga(CreateView):
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     context_object_name = "lista_vagas_professor"
     success_url = reverse_lazy('professor-logado')
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(Criar_Vaga, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.professor_responsavel = self.request.user.professor
+        return super(Criar_Vaga, self).form_valid(form)
 
 
 

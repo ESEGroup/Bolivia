@@ -1,10 +1,8 @@
 {% load static %}
 
-
 <html>
 
 <head>
-    <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -19,17 +17,6 @@
             top: 0px;
             padding: 0;
             left: 0px;
-            font-family: UBUNTU;
-        }
-
-        #logo {
-            position: fixed !important;
-            width: 12%;
-            height: 52px;
-            z-index: 300;
-            top: 50px;
-            padding: 0;
-            left: 2%;
             font-family: UBUNTU;
         }
 
@@ -56,7 +43,7 @@
             position: absolute;
             float: hight;
             top: 0px;
-            margin-left: 1%;
+            margin-left: 10%;
         }
 
         .menubar {
@@ -76,7 +63,7 @@
         .menubar a {
             text-decoration: none;
             color: #FFF;
-            top: -5px;
+            top: 0px;
             padding-top: 7px;
             padding-bottom: 7px;
             padding-left: 12px;
@@ -107,27 +94,11 @@
         }
     </style>
     <div id='bar'>
-        <table align="left">
-            <td align="left">
-                <a href="{% url 'tela-inicial' %}" title="Página em Portugués">
-                    <img src="{% static "sistema/buttonBrazil.png" %}" width=25px alt="brasil">
-                </a>
-                <a href="{% url 'tela-inicial' %}" title="Page in English">
-                    <img src="{% static "sistema/buttonUSA.png" %}" width=25px>
-                </a>
-                <a href="{% url 'tela-inicial' %}" title="Página en Español">
-                    <img src="{% static "sistema/buttonSpain.png" %}" width=25px>
-                </a>
-                <a href="{% url 'tela-inicial' %}" title="Pagina in Italiano">
-                    <img src="{% static "sistema/buttonItaly.png" %}" width=25px>
-                </a>
-            </td>
-        </table>
         <span class='menuIcon'>
 			<table align="left">
 				<td align="left">
-					<a href="{% url 'tela-inicial' %}" title="MinervApply">
-						<img src="{% static "sistema/MinervApply05.png" %}" width=40px>
+					<a href="{% url 'tela-inicial' %}" >
+						<img src="{% static "sistema/MinervApply05.png" %}"width=40px>
 					</a>
 				</td>
 				<td align="left">
@@ -141,49 +112,38 @@
 			</table>
 		</span>
         <span class='menubar'>
-  <table align="right">
-  {% if user.professor %}
-    <td align="right">
-      <font color="white" face="UBUNTU" size="+1">
-        <a href="{% url 'adicionar-vaga'%}" >
-          Ofertar Vaga
-        </a>
-      </font>
-    </td>
-  {% endif %}
-  {% if not user.is_anonymous %}
-    <td align="right">
-      <font color="white" face="UBUNTU" size="+1">
-        <a href="./perfilAlterar_Profesore01.html" title="Exibir o seu perfil"> {{ user }} </a>
-      </font>
-    </td>
-    {% endif %}
-    <td align="right">
-    <font color="white" face="UBUNTU" size="+1">
-      {% if user.is_anonymous %}
-    <a href="{% url 'login' %}">Login</a>
-    {% else %}
-    <a href="{% url 'logout' %}">Logout</a>
-  {% endif %}
-
-
-    </td>
-  </table>
-</span>
-    </div>
-    <div id='logo'>
-        <table align="left">
-            <td align="left">
-                <img src="{% static "sistema/MinervApply02.png " %}" width=100%>
-            </td>
-        </table>
+      {% if not user.is_anonymous %}
+			<table align="left">
+				<td align="right">
+					<font color="white" face="UBUNTU" size="+1">
+            <a href="{% url 'adicionar-vaga'%}" >
+              Ofertar Vaga
+            </a>
+					</font>
+				</td>
+			</table>
+      {% endif %}
+			<table align="left">
+				<td align="right">
+					<font color="white" face="UBUNTU" size="+1">
+						<a href="./perfilAlterar_Profesore01.html" title="Exibir o seu perfil">
+              {{ user }}
+            {% if user.is_anonymous %}
+      <a href="{% url 'login' %}">Login</a>
+      {% else %}
+      <a href="{% url 'logout' %}">Logout</a>
+      {% endif %}
+						</a>
+					</font>
+				</td>
+			</table>
+		</span>
     </div>
     <br>
     <br>
     <br>
-    <div id='content'>
-        {% block content %} {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
 </body>
 
 </html>

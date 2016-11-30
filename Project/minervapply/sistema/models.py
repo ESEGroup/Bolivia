@@ -4,6 +4,7 @@ from django.utils import timezone
 from datetime import date
 from django.contrib.auth.models import AbstractUser
 
+
 class Professor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     #nome = models.CharField(max_length=100, default='nome')
@@ -39,8 +40,8 @@ class Vaga(models.Model):
     disponibilidade = models.BooleanField(default=True)
     remuneracao = models.FloatField(default=0)
     local = models.CharField(max_length=200,default='local')
-    data_publicacao = models.DateTimeField(auto_now=False, auto_now_add=False, default=timezone.now())
-    prazo_de_aplicacao = models.DateField(auto_now=False, auto_now_add=False, default=date.today())
+    data_publicacao = models.DateTimeField(default=timezone.now)
+    prazo_de_aplicacao = models.DateField(default=timezone.now)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel= models.ForeignKey('Professor', null=True, blank=True)
 
