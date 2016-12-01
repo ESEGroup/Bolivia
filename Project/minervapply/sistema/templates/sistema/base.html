@@ -142,7 +142,7 @@
 		</span>
         <span class='menubar'>
   <table align="right">
-  {% if user.professor %}
+  {% if user.profile.is_professor %}
     <td align="right">
       <font color="white" face="UBUNTU" size="+1">
         <a href="{% url 'adicionar-vaga'%}" >
