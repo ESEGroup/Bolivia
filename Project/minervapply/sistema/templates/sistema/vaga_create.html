@@ -1,0 +1,14 @@
+{% extends "sistema/base.html" %}
+{% load staticfiles%}
+
+{% block title %}Minervapply-Editar vaga{% endblock %}
+
+{% block content %}
+
+
+<form align="center" action="" method="post"> {% csrf_token %} {{ form.as_p }}
+   <input type="submit" value="Criar vaga" />
+</form>
+<br>
+
+{% endblock %}

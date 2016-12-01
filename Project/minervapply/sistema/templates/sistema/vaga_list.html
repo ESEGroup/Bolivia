@@ -1,0 +1,80 @@
+{% extends "sistema/base.html" %}
+
+{% load static%} 
+
+{% block title %}Minervapply-Index vagas{% endblock %}
+
+{% block content %}
+
+{% for vaga in object_list %}
+<div>
+
+    <table align="center" id='caixa'>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+2">
+                    {{vaga.titulo}}
+                </font>
+            </td>
+            {% if  not user.is_anonymous %}
+            <td align="right">
+                <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
+                    <input type="button" value="Editar Vaga">
+                </a>
+            </td>
+            {% endif %}
+
+        </tr>
+
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Tipo da vaga: {{vaga.tipo}}
+                </font>
+            </td>
+            <td align="right">
+                <img src="{% static "sistema/poli.png " %}" width=70px alt=" poli.png ">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Local: {{vaga.local}}
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Professor responsável: {{vaga.professor_responsavel}}
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Prazo de aplicação: {{vaga.prazo_de_aplicacao}}
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Publicada em: {{vaga.data_publicacao}}
+                </font>
+            </td>
+            <td align="right">
+                <a href="./Bolsa01_candidatos_br.html" title="Visualize os candidatos &agrave; essa vaga">
+                    <input type="button" value="Visualizar Candidatos">
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+1">
+                    Remuneração: R$ {{vaga.remuneracao}}
+                </font>
+            </td>
+        </tr>
+    </table>
+    {% endfor %} {% endblock %}
