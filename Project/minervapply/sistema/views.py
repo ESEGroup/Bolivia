@@ -13,19 +13,26 @@ from django.db import transaction
 from .forms import *
 from django.contrib import messages
 
+
+def is_professor(user):
+    return user.profile.is_professor
+
 class TelaInicial(ListView):
     model = Vaga
-    template_name = 'sistema/lista_vagas.html'
+    template_name = 'sistema/vaga_list.html'
+    def get_queryset(self):
+        return sorted(Vaga.objects.all(), key=lambda vaga: vaga.data_publicacao, reverse=True)
 
 class ProfessorLogado(ListView):
     model = Vaga
     template_name = 'sistema/vaga_list.html'
 
     @method_decorator(login_required)
+    @method_decorator(user_passes_test(is_professor))
     def dispatch(self, *args, **kwargs):
         return super(ProfessorLogado, self).dispatch(*args, **kwargs)
     def get_queryset(self):
-        return Vaga.objects.filter(professor_responsavel=self.request.user.profile)
+        return sorted(Vaga.objects.filter(professor_responsavel=self.request.user.profile), key=lambda vaga: vaga.data_publicacao, reverse=True)
 
 
 
@@ -75,9 +82,6 @@ def create_user_view(request):
         'profile_form': profile_form
     })
 
-def is_professor(user):
-    return user.profile.is_professor
-
 class Criar_Vaga(CreateView):
     model = Vaga
     template_name_suffix = '_create'
@@ -94,12 +98,17 @@ class Criar_Vaga(CreateView):
         form.instance.professor_responsavel = self.request.user.profile
         return super(Criar_Vaga, self).form_valid(form)
 
+# def owns_vaga(user,):
+#     return user.profile.
+
+
 class Atualizar_Vaga(UpdateView):
     model = Vaga
     template_name_suffix = '_edit'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     success_url = reverse_lazy('professor-logado')
     @method_decorator(login_required)
+    # @method_decorator(user_passes_test(owns_vaga)
     def dispatch(self, *args, **kwargs):
         return super(Atualizar_Vaga, self).dispatch(*args, **kwargs)
 
