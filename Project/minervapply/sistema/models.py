@@ -57,5 +57,8 @@ class Vaga(models.Model):
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel= models.ForeignKey('Profile', null=True, blank=True)
 
+    def get_data_publicacao(self):
+        return self.data_publicacao
+        
     def __str__(self):
         return self.titulo

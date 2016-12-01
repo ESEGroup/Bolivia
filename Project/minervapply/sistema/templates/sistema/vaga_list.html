@@ -1,6 +1,6 @@
 {% extends "sistema/base.html" %}
 
-{% load static%} 
+{% load static%}
 
 {% block title %}Minervapply-Index vagas{% endblock %}
 
@@ -16,7 +16,7 @@
                     {{vaga.titulo}}
                 </font>
             </td>
-            {% if  not user.is_anonymous %}
+            {% if  user.profile.is_professor %}
             <td align="right">
                 <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
                     <input type="button" value="Editar Vaga">
@@ -63,11 +63,13 @@
                     Publicada em: {{vaga.data_publicacao}}
                 </font>
             </td>
+          {% if  user.profile.is_professor %}
             <td align="right">
                 <a href="./Bolsa01_candidatos_br.html" title="Visualize os candidatos &agrave; essa vaga">
                     <input type="button" value="Visualizar Candidatos">
                 </a>
             </td>
+          {% endif %}
         </tr>
         <tr>
             <td align="left">
