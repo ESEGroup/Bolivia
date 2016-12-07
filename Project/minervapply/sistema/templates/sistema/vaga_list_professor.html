@@ -16,6 +16,11 @@
                     {{vaga.titulo}}
                 </font>
             </td>
+            <td align="right">
+                <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
+                    <input type="button" value="Editar Vaga">
+                </a>
+            </td>
         </tr>
 
         <tr>
@@ -54,6 +59,11 @@
                 <font color="#04B486" face="UBUNTU" size="+1">
                     Publicada em: {{vaga.data_publicacao}}
                 </font>
+            </td>
+            <td align="right">
+                <a href="./Bolsa01_candidatos_br.html" title="Visualize os candidatos &agrave; essa vaga">
+                    <input type="button" value="Visualizar Candidatos">
+                </a>
             </td>
         </tr>
         <tr>

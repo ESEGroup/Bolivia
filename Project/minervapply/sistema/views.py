@@ -12,10 +12,52 @@ from django.views.generic.detail import DetailView
 from django.db import transaction
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
 
 
-def is_professor(user):
-    return user.profile.is_professor
+def is_professor(self):
+    return self.profile.is_professor
+def is_chefe_departamento(self):
+    return self.profile.chefe_departamento
+
+# class ListaAlunos(ListView):
+#     model = Profile
+#     template_name = 'sistema/aluno_list.html'
+#     def get_queryset(self):
+#         return sorted(Vaga.objects.all(), key=lambda vaga: vaga.data_publicacao, reverse=True)
+
+class SolicitudesProfessores(ListView):
+    model = Profile
+    template_name = 'sistema/solicitudes_professores.html'
+
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(is_professor))
+    @method_decorator(user_passes_test(is_chefe_departamento))
+    def dispatch(self, *args, **kwargs):
+        return super(SolicitudesProfessores, self).dispatch(*args, **kwargs)
+    def get_queryset(self):
+        return User.objects.filter(is_active = False, profile__is_professor = True, profile__curso = self.request.user.profile.curso)
+
+
+def mesmo_departamento(self, request):
+    return self.get_object().profile.departamento == request.user.departamento
+
+
+@login_required
+@user_passes_test(is_professor)
+@user_passes_test(is_chefe_departamento)
+def ativar_professor(request, pk):
+    try:
+        prof = Profile.objects.get(pk = pk)
+        if request.user.profile.departamento == prof.departamento:
+            prof.user.is_active = True
+            prof.user.save()
+            return redirect(reverse('solicitudes-professores'))
+        else:
+            return redirect_to_login(request.get_full_path())
+    except Profile.DoesNotExist:
+        raise Http404("Professor não existe")
+
 
 class TelaInicial(ListView):
     model = Vaga
@@ -25,7 +67,7 @@ class TelaInicial(ListView):
 
 class ProfessorLogado(ListView):
     model = Vaga
-    template_name = 'sistema/vaga_list.html'
+    template_name = 'sistema/vaga_list_professor.html'
 
     @method_decorator(login_required)
     @method_decorator(user_passes_test(is_professor))
@@ -42,45 +84,93 @@ class ProfessorLogado(ListView):
 
 @login_required
 @transaction.atomic
-def update_profile(request):
+def update_professor_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfessorProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request,'Your profile was successfully updated!')
+            # messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
         else:
             messages.error(request,'Please correct the error below.')
     else:
         user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'registration/profile.html', {
+        profile_form = ProfessorProfileForm(instance=request.user.profile)
+    return render(request, 'registration/update_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
 
 @transaction.atomic
-def create_user_view(request):
+def create_professor_view(request):
     if request.method == 'POST':
         user_form = UserCreationForm(request.POST)
-        profile_form = ProfileForm(request.POST)
+        profile_form = ProfessorProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
+            user_form.instance.is_active = False #O usuario professor ficará inativo até ser availado pelo coordinador
             user = user_form.save()
             user.refresh_from_db()  # This will load the Profile created by the Signal
-            profile_form = ProfileForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
+            profile_form = ProfessorProfileForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
+            user.profile.is_professor = True
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
             profile_form.save()  # Gracefully save the form
-            messages.success(request,'Your profile was successfully updated!')
+            # messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
     else:
         user_form = UserCreationForm()
-        profile_form = ProfileForm()
-    return render(request, 'registration/profile.html', {
+        profile_form = ProfessorProfileForm()
+    return render(request, 'registration/create_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required
+@transaction.atomic
+def update_aluno_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = AlunoProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            # messages.success(request,'Your profile was successfully updated!')
+            return redirect(reverse('tela-inicial'))
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = AlunoProfileForm(instance=request.user.profile)
+    return render(request, 'registration/update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+
+@transaction.atomic
+def create_aluno_view(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        profile_form = AlunoProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.refresh_from_db()  # This will load the Profile created by the Signal
+            profile_form = AlunoProfileForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
+            user.profile.is_aluno = True
+            profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
+            profile_form.save()  # Gracefully save the form
+            # messages.success(request,'Your profile was successfully updated!')
+            return redirect(reverse('tela-inicial'))
+    else:
+        user_form = UserCreationForm()
+        profile_form = AlunoProfileForm()
+    return render(request, 'registration/create_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+
 
 class Criar_Vaga(CreateView):
     model = Vaga
@@ -98,8 +188,12 @@ class Criar_Vaga(CreateView):
         form.instance.professor_responsavel = self.request.user.profile
         return super(Criar_Vaga, self).form_valid(form)
 
-# def owns_vaga(user,):
-#     return user.profile.
+
+
+
+
+def test_autoria(self, request):
+    return self.get_object().professor_responsavel.user == request.user
 
 
 class Atualizar_Vaga(UpdateView):
@@ -107,16 +201,24 @@ class Atualizar_Vaga(UpdateView):
     template_name_suffix = '_edit'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     success_url = reverse_lazy('professor-logado')
-    @method_decorator(login_required)
-    # @method_decorator(user_passes_test(owns_vaga)
-    def dispatch(self, *args, **kwargs):
-        return super(Atualizar_Vaga, self).dispatch(*args, **kwargs)
 
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(is_professor))
+    def dispatch(self, request, *args, **kwargs):
+        if not self.test_autoria(request):
+            return redirect_to_login(request.get_full_path())
+        return super(Atualizar_Vaga, self).dispatch(
+            request, *args, **kwargs)
 
 
 class Apagar_Vaga(DeleteView):
     model = Vaga
     success_url = reverse_lazy('professor-logado')
+
     @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(Apagar_Vaga, self).dispatch(*args, **kwargs)
+    @method_decorator(user_passes_test(is_professor))
+    def dispatch(self, request, *args, **kwargs):
+        if not self.test_autoria(request):
+            return redirect_to_login(request.get_full_path())
+        return super(Apagar_Vaga, self).dispatch(
+            request, *args, **kwargs)

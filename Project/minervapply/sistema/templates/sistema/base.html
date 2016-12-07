@@ -131,11 +131,11 @@
 					</a>
 				</td>
 				<td align="left">
-					<form action="./search_br.html" class="search" method="get">
+					<!-- <form action="{#% url 'pesquisar-aluno'%#}" class="search" method="get">
 						<font color="black" face="UBUNTU" size="5">
 							<input class="searchbar" id="search" name="quest" type="text" value="" size=30% placeholder="Pesquisar Usu&aacute;rio">
 							<input class="searchbut" type="submit" value="&#8227;" />
-						</font>
+						</font> -->
 					</form>
 				</td>
 			</table>
@@ -150,11 +150,18 @@
         </a>
       </font>
     </td>
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'professor-logado' %}" >
+          Minhas Vagas
+        </a>
+      </font>
+    </td>
   {% endif %}
   {% if not user.is_anonymous %}
     <td align="right">
       <font color="white" face="UBUNTU" size="+1">
-        <a href="./perfilAlterar_Profesore01.html" title="Exibir o seu perfil"> {{ user }} </a>
+        <a href="{% url 'atualizar_professor' %}" title="Exibir o seu perfil"> {{ user }} </a>
       </font>
     </td>
     {% endif %}
@@ -171,13 +178,13 @@
   </table>
 </span>
     </div>
-    <div id='logo'>
+    <!-- <div id='logo'>
         <table align="left">
             <td align="left">
                 <img src="{% static "sistema/MinervApply02.png " %}" width=100%>
             </td>
         </table>
-    </div>
+    </div> -->
     <br>
     <br>
     <br>

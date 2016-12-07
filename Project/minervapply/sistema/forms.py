@@ -1,16 +1,31 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+from django.contrib.auth.forms import AuthenticationForm
+
+
+# class PickyAuthenticationForm(AuthenticationForm):
+#     def confirm_login_allowed(self, user):
+#         if not user.is_active:
+#             raise forms.ValidationError(
+#                 _("This account is inactive."),
+#                 code='inactive',
+#             )
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username','password','first_name', 'last_name', 'email')
+        fields = ('username','first_name', 'last_name', 'email')
 
-class ProfileForm(forms.ModelForm):
+class ProfessorProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('telefone',)
+        fields = ('telefone','data_nascimento','registro_ufrj','departamento','url',)
+
+class AlunoProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('telefone','data_nascimento','curso','dre')
 
 class UserCreationForm(forms.ModelForm):
     """

@@ -37,6 +37,8 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+        
+
 class Vaga(models.Model):
     IC='IC'
     ESTAGIO_EXT = 'EE'
@@ -59,6 +61,6 @@ class Vaga(models.Model):
 
     def get_data_publicacao(self):
         return self.data_publicacao
-        
+
     def __str__(self):
         return self.titulo

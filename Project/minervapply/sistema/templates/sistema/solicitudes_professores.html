@@ -1,0 +1,32 @@
+{% extends "sistema/base.html" %}
+
+{% load static%}
+
+{% block title %}Minervapply-Index vagas{% endblock %}
+
+{% block content %}
+
+
+<br>
+<br>
+Mostrando professores inativos do curso: {{user.profile.curso}}
+<br>
+<br>
+{% for usuario in object_list %}
+<div>
+    <table align="center" id='caixa'>
+        <tr>
+            <td align="left">
+                <font color="#04B486" face="UBUNTU" size="+2">
+                    {{usuario}}
+                </font>
+            </td>
+        </tr>
+        <td align="right">
+            <a href="{% url 'ativar-professor' usuario.id %}" title="Ativar Professor">
+                <input type="button" value="AtivarProfessor">
+            </a>
+        </td>
+    </table>
+</div>
+    {% endfor %} {% endblock %}
