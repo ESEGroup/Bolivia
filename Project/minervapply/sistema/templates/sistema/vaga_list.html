@@ -62,6 +62,11 @@
                     Remuneração: R$ {{vaga.remuneracao}}
                 </font>
             </td>
+            <td align="right">
+                <a href="{% url 'candidatarse' vaga.pk %}" title="Candidatarse para esta vaga">
+                    <input type="button" value="Candidatarse para esta vaga">
+                </a>
+            </td>
         </tr>
     </table>
     {% endfor %} {% endblock %}

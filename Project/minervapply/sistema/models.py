@@ -25,6 +25,8 @@ class Profile(models.Model):
     curso = models.CharField(max_length=200, default='curso')
     dre = models.CharField(max_length=8, default='000000-0')
 
+
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -37,7 +39,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-        
+
 
 class Vaga(models.Model):
     IC='IC'
@@ -57,7 +59,8 @@ class Vaga(models.Model):
     data_publicacao = models.DateTimeField(default=timezone.now)
     prazo_de_aplicacao = models.DateField(default=timezone.now)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
-    professor_responsavel= models.ForeignKey('Profile', null=True, blank=True)
+    professor_responsavel = models.ForeignKey('Profile', null=True, blank=True)
+    candidatos = models.ManyToManyField( Profile, related_name='+')
 
     def get_data_publicacao(self):
         return self.data_publicacao

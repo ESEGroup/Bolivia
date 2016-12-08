@@ -13,8 +13,10 @@ from django.db import transaction
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
+from django.contrib.messages.views import SuccessMessageMixin
 
-
+def is_aluno(self):
+    return self.profile.is_aluno
 def is_professor(self):
     return self.profile.is_professor
 def is_chefe_departamento(self):
@@ -25,6 +27,32 @@ def is_chefe_departamento(self):
 #     template_name = 'sistema/aluno_list.html'
 #     def get_queryset(self):
 #         return sorted(Vaga.objects.all(), key=lambda vaga: vaga.data_publicacao, reverse=True)
+
+@login_required
+@user_passes_test(is_aluno)
+def candidatarse(request,pk):
+    try:
+        vaga = Vaga.objects.get(pk = pk)
+        vaga.candidatos.add(request.user.profile)
+        vaga.save()
+        messages.success('Succesfully applied')
+        return redirect(reverse('tela-inicial'))
+    except Vaga.DoesNotExist:
+        raise Http404("Vaga não existe")
+
+
+@login_required
+@user_passes_test(is_professor)
+def mostrar_candidatos(request, pk):
+    try:
+        vaga = Vaga.objects.get(pk = pk)
+        if request.user == vaga.professor_responsavel.user:
+            lista_candidatos = vaga.candidatos.all()
+            return render(request, 'sistema/candidatos_list.html', {'lista_candidatos': lista_candidatos, 'vaga' : vaga})
+        else:
+            return redirect_to_login(request.get_full_path())
+    except Vaga.DoesNotExist:
+        raise Http404("Vaga não existe")
 
 class SolicitudesProfessores(ListView):
     model = Profile
@@ -39,8 +67,8 @@ class SolicitudesProfessores(ListView):
         return User.objects.filter(is_active = False, profile__is_professor = True, profile__curso = self.request.user.profile.curso)
 
 
-def mesmo_departamento(self, request):
-    return self.get_object().profile.departamento == request.user.departamento
+# def mesmo_departamento(self, request):
+#     return self.get_object().profile.departamento == request.user.departamento
 
 
 @login_required
@@ -52,6 +80,7 @@ def ativar_professor(request, pk):
         if request.user.profile.departamento == prof.departamento:
             prof.user.is_active = True
             prof.user.save()
+            messages.success('Professor ativado com succeso')
             return redirect(reverse('solicitudes-professores'))
         else:
             return redirect_to_login(request.get_full_path())
@@ -91,7 +120,7 @@ def update_professor_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            # messages.success(request,'Your profile was successfully updated!')
+            messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
         else:
             messages.error(request,'Please correct the error below.')
@@ -116,7 +145,7 @@ def create_professor_view(request):
             user.profile.is_professor = True
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
             profile_form.save()  # Gracefully save the form
-            # messages.success(request,'Your profile was successfully updated!')
+            messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
     else:
         user_form = UserCreationForm()
@@ -135,7 +164,7 @@ def update_aluno_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            # messages.success(request,'Your profile was successfully updated!')
+            messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
         else:
             messages.error(request,'Please correct the error below.')
@@ -160,7 +189,7 @@ def create_aluno_view(request):
             user.profile.is_aluno = True
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
             profile_form.save()  # Gracefully save the form
-            # messages.success(request,'Your profile was successfully updated!')
+            messages.success(request,'Your profile was successfully updated!')
             return redirect(reverse('tela-inicial'))
     else:
         user_form = UserCreationForm()
@@ -172,12 +201,13 @@ def create_aluno_view(request):
 
 
 
-class Criar_Vaga(CreateView):
+class Criar_Vaga(SuccessMessageMixin,CreateView):
     model = Vaga
     template_name_suffix = '_create'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     context_object_name = "lista_vagas_professor"
     success_url = reverse_lazy('professor-logado')
+    success_message = "Vaga criada com succeso"
 
     @method_decorator(login_required)
     @method_decorator(user_passes_test(is_professor))
@@ -192,15 +222,17 @@ class Criar_Vaga(CreateView):
 
 
 
-def test_autoria(self, request):
-    return self.get_object().professor_responsavel.user == request.user
 
 
-class Atualizar_Vaga(UpdateView):
+class Atualizar_Vaga(SuccessMessageMixin,UpdateView):
     model = Vaga
     template_name_suffix = '_edit'
     fields = ['titulo','remuneracao','local','prazo_de_aplicacao','tipo']
     success_url = reverse_lazy('professor-logado')
+    success_message = "Vaga atualizada com succeso"
+
+    def test_autoria(self, request):
+        return self.get_object().professor_responsavel.user == request.user
 
     @method_decorator(login_required)
     @method_decorator(user_passes_test(is_professor))
@@ -211,9 +243,14 @@ class Atualizar_Vaga(UpdateView):
             request, *args, **kwargs)
 
 
-class Apagar_Vaga(DeleteView):
+
+class Apagar_Vaga(SuccessMessageMixin,DeleteView):
     model = Vaga
     success_url = reverse_lazy('professor-logado')
+    success_message = "Vaga apagada com succeso"
+
+    def test_autoria(self, request):
+        return self.get_object().professor_responsavel.user == request.user
 
     @method_decorator(login_required)
     @method_decorator(user_passes_test(is_professor))

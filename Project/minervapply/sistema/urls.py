@@ -13,6 +13,10 @@ urlpatterns=[
     url(r'^professor_logado/(?P<pk>[0-9]+)/delete/$', views.Apagar_Vaga.as_view(), name='apagar-vaga'),
     url(r'^professor_logado/solicitudes_professores/$', views.SolicitudesProfessores.as_view(), name = 'solicitudes-professores'),
     url(r'^professor_logado/ativar_professor/(?P<pk>[0-9]+)/$', views.ativar_professor, name = 'ativar-professor'),
+    url(r'^professor_logado/mostrar_candidatos/(?P<pk>[0-9]+)/$', views.mostrar_candidatos, name = 'mostrar_candidatos'),
+
+    url(r'^candidatarse/(?P<pk>[0-9]+)/$', views.candidatarse, name = 'candidatarse'),
+
 
     # url(r'^pesquisar_aluno(?P<pk>[0-9]+)/$', views.TelaInicial.as_view(), name = 'tela-inicial'),
 ]

@@ -1,0 +1,20 @@
+{% extends "sistema/base.html" %}
+
+{% load static%}
+
+{% block title %}Minervapply-Lista Candidatos{% endblock %}
+
+{% block content %}
+
+{% for candidato in lista_candidatos %}
+
+<table align="center" id='caixa'>
+    <tr>
+        <td align="left">
+            <font color="#04B486" face="UBUNTU" size="+2">
+                {{candidato}}
+            </font>
+        </td>
+    </tr>
+
+{% endfor %} {% endblock %}
