@@ -228,11 +228,16 @@
         </a>
       </font>
     </td>
-  {% endif %}
-  {% if not user.is_anonymous %}
     <td align="right">
       <font color="white" face="UBUNTU" size="+1">
-        <a href="{% url 'atualizar_professor' %}" title="Exibir o seu perfil"> {{ user }} </a>
+        <a href="{% url 'atualizar-professor' %}" title="Exibir o seu perfil"> Professor:{{ user }} </a>
+      </font>
+    </td>
+    {% endif %}
+    {% if user.profile.is_aluno%}
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'atualizar-aluno' %}" title="Exibir o seu perfil"> Aluno:{{ user }} </a>
       </font>
     </td>
     {% endif %}
@@ -259,7 +264,7 @@
     <br>
     <br>
     <br>
-    <div id='content'>
+    <div  id = "content">
         {% block content %} {% endblock %}
     </div>
 

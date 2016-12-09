@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     data_nascimento = models.DateField(null=True, blank=True)
@@ -16,14 +17,14 @@ class Profile(models.Model):
     is_professor = models.BooleanField(default=False)
 
     #Atributos exclusivos de Professor
-    registro_ufrj = models.CharField(max_length=8, default='000000-0')
+    registro_ufrj = models.CharField(max_length=9, default='000000000')
     departamento = models.CharField(max_length=200, default='nome_departamento')
     url = models.URLField(default='www.default.com')
     chefe_departamento = models.BooleanField(default=False)
 
     #Atributos exclusivos de aluno
     curso = models.CharField(max_length=200, default='curso')
-    dre = models.CharField(max_length=8, default='000000-0')
+    dre = models.CharField(max_length=9, default='000000000')
 
 
 
@@ -62,8 +63,8 @@ class Vaga(models.Model):
     professor_responsavel = models.ForeignKey('Profile', null=True, blank=True)
     candidatos = models.ManyToManyField( Profile, related_name='+')
 
-    def get_data_publicacao(self):
-        return self.data_publicacao
+    # def get_data_publicacao(self):
+    #     return self.data_publicacao
 
     def __str__(self):
         return self.titulo

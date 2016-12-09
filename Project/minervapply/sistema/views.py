@@ -35,7 +35,7 @@ def candidatarse(request,pk):
         vaga = Vaga.objects.get(pk = pk)
         vaga.candidatos.add(request.user.profile)
         vaga.save()
-        messages.success('Succesfully applied')
+        messages.success(request,'Succesfully applied')
         return redirect(reverse('tela-inicial'))
     except Vaga.DoesNotExist:
         raise Http404("Vaga não existe")
@@ -80,7 +80,7 @@ def ativar_professor(request, pk):
         if request.user.profile.departamento == prof.departamento:
             prof.user.is_active = True
             prof.user.save()
-            messages.success('Professor ativado com succeso')
+            messages.success(request,'Professor ativado com succeso')
             return redirect(reverse('solicitudes-professores'))
         else:
             return redirect_to_login(request.get_full_path())
@@ -113,6 +113,7 @@ class ProfessorLogado(ListView):
 
 @login_required
 @transaction.atomic
+@user_passes_test(is_professor)
 def update_professor_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
@@ -157,6 +158,7 @@ def create_professor_view(request):
 
 @login_required
 @transaction.atomic
+@user_passes_test(is_aluno)
 def update_aluno_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)

@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import ValidationError
 
 
 # class PickyAuthenticationForm(AuthenticationForm):
@@ -11,6 +12,19 @@ from django.contrib.auth.forms import AuthenticationForm
 #                 _("This account is inactive."),
 #                 code='inactive',
 #             )
+
+def validarDre(dre):
+    if len(dre) != 9:
+        return False
+    soma = 0
+    i = 1
+    for i in range(1, 9):
+        soma = soma + (i * int(dre[i - 1]))
+    verify = int(dre[8])
+    if soma % 10 == verify:
+        return True
+    else:
+    	return False
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -26,6 +40,12 @@ class AlunoProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('telefone','data_nascimento','curso','dre')
+
+    def clean_dre(self):
+        dre = self.cleaned_data.get('dre')
+        if not validarDre(dre):
+            raise ValidationError("Dre não valido")
+        return dre
 
 class UserCreationForm(forms.ModelForm):
     """
@@ -54,6 +74,8 @@ class UserCreationForm(forms.ModelForm):
                 code='password_mismatch',
             )
         return password2
+
+
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
