@@ -60,8 +60,9 @@ class Vaga(models.Model):
     data_publicacao = models.DateTimeField(default=timezone.now)
     prazo_de_aplicacao = models.DateField(default=timezone.now)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
-    professor_responsavel = models.ForeignKey('Profile', null=True, blank=True)
-    candidatos = models.ManyToManyField( Profile, related_name='+')
+    professor_responsavel = models.ForeignKey('Profile', null=True)
+    candidatos = models.ManyToManyField(Profile, related_name='+',null = True, blank = True)
+    candidato_selecionado = models.OneToOneField(Profile,related_name='+',null =  True, blank = True)
 
     # def get_data_publicacao(self):
     #     return self.data_publicacao

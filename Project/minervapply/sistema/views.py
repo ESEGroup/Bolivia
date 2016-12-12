@@ -35,7 +35,7 @@ def candidatarse(request,pk):
         vaga = Vaga.objects.get(pk = pk)
         vaga.candidatos.add(request.user.profile)
         vaga.save()
-        messages.success(request,'Succesfully applied')
+        messages.success(request,'Succesfully applied for vaga %s' % vaga)
         return redirect(reverse('tela-inicial'))
     except Vaga.DoesNotExist:
         raise Http404("Vaga não existe")
@@ -53,6 +53,30 @@ def mostrar_candidatos(request, pk):
             return redirect_to_login(request.get_full_path())
     except Vaga.DoesNotExist:
         raise Http404("Vaga não existe")
+
+@login_required
+@user_passes_test(is_professor)
+def candidato_selecionado(request, pk_aluno, pk_vaga):
+    try:
+        vaga = Vaga.objects.get(pk = pk_vaga)
+        aluno = Profile.objects.get(pk = pk_aluno)
+        if not aluno.is_aluno:
+            message.error(request,'Perfil seleccionado não é um aluno')
+            return redirect(reverse('tela-inicial'))
+        if not vaga.candidato_selecionado == None:
+            message.error(request,'Já foi selecionado um aluno para esta vaga')
+            return redirect(reverse('tela-inicial'))
+        if request.user == vaga.professor_responsavel.user:
+            vaga.candidato_selecionado = aluno
+            vaga.save()
+            messages.success(request,'Candidato %s selecionado com succeso' % vaga.candidato_selecionado)
+            return redirect(reverse('tela-inicial'))
+        else:
+            return redirect_to_login(request.get_full_path())
+    except Vaga.DoesNotExist:
+        raise Http404("Vaga não existe")
+    except Profile.DoesNotExist:
+        raise Http404("Aluno não existe")
 
 class SolicitudesProfessores(ListView):
     model = Profile
@@ -92,7 +116,7 @@ class TelaInicial(ListView):
     model = Vaga
     template_name = 'sistema/vaga_list.html'
     def get_queryset(self):
-        return sorted(Vaga.objects.all(), key=lambda vaga: vaga.data_publicacao, reverse=True)
+        return sorted(Vaga.objects.filter(candidato_selecionado = None), key=lambda vaga: vaga.data_publicacao, reverse=True)
 
 class ProfessorLogado(ListView):
     model = Vaga

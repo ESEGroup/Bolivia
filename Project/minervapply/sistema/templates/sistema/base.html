@@ -134,7 +134,7 @@
             position: absolute;
             float: hight;
             top: 10px;
-            left: 30%;
+            left: 20%;
             margin-left: 35%;
             color: #FFA;
             font-size: 14px;
@@ -230,14 +230,14 @@
     </td>
     <td align="right">
       <font color="white" face="UBUNTU" size="+1">
-        <a href="{% url 'atualizar-professor' %}" title="Exibir o seu perfil"> Professor:{{ user }} </a>
+        <a href="{% url 'atualizar-professor' %}" title="Exibir o seu perfil"> Professor: {{ user }} </a>
       </font>
     </td>
     {% endif %}
     {% if user.profile.is_aluno%}
     <td align="right">
       <font color="white" face="UBUNTU" size="+1">
-        <a href="{% url 'atualizar-aluno' %}" title="Exibir o seu perfil"> Aluno:{{ user }} </a>
+        <a href="{% url 'atualizar-aluno' %}" title="Exibir o seu perfil"> Aluno: {{ user }} </a>
       </font>
     </td>
     {% endif %}

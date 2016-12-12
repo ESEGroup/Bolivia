@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LOGIN_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/sistema/home'
 LOGIN_URL= '/login'
 
 

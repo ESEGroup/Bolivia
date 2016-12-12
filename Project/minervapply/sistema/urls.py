@@ -14,7 +14,7 @@ urlpatterns=[
     url(r'^professor_logado/solicitudes_professores/$', views.SolicitudesProfessores.as_view(), name = 'solicitudes-professores'),
     url(r'^professor_logado/ativar_professor/(?P<pk>[0-9]+)/$', views.ativar_professor, name = 'ativar-professor'),
     url(r'^professor_logado/mostrar_candidatos/(?P<pk>[0-9]+)/$', views.mostrar_candidatos, name = 'mostrar-candidatos'),
-
+    url(r'^professor_logado/mostrar_candidatos/(?P<pk_vaga>[0-9]+)/candidato_selecionado/(?P<pk_aluno>[0-9]+)/$', views.candidato_selecionado, name = 'candidato-selecionado'),
     url(r'^candidatarse/(?P<pk>[0-9]+)/$', views.candidatarse, name = 'candidatarse'),
 
 
