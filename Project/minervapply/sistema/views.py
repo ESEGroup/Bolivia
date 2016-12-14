@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from .models import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
-from .urls import *
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.db import transaction
-from .forms import *
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
+
+from .forms import *
+from .urls import *
+from .models import Profile, Vaga
 
 def is_aluno(self):
     return self.profile.is_aluno
@@ -21,12 +21,6 @@ def is_professor(self):
     return self.profile.is_professor
 def is_chefe_departamento(self):
     return self.profile.chefe_departamento
-
-# class ListaAlunos(ListView):
-#     model = Profile
-#     template_name = 'sistema/aluno_list.html'
-#     def get_queryset(self):
-#         return sorted(Vaga.objects.all(), key=lambda vaga: vaga.data_publicacao, reverse=True)
 
 @login_required
 @user_passes_test(is_aluno)
@@ -39,7 +33,16 @@ def candidatarse(request,pk):
         return redirect(reverse('tela-inicial'))
     except Vaga.DoesNotExist:
         raise Http404("Vaga não existe")
+    except MultipleObjectsReturned:
+        raise Http404("Devolveu mais de um objeto")
 
+@login_required
+@user_passes_test(is_aluno)
+def aluno_candidatadas(request):
+    aluno = request.user.profile
+    """Dar uma olhada a isso aqui"""
+    lista_vagas_candidatadas = Vaga.objects.filter(candidatos = aluno)
+    return render(request, 'sistema/aluno_candidatadas.html', {'lista_vagas_candidatadas': lista_vagas_candidatadas,'aluno': aluno})
 
 @login_required
 @user_passes_test(is_professor)
@@ -53,6 +56,8 @@ def mostrar_candidatos(request, pk):
             return redirect_to_login(request.get_full_path())
     except Vaga.DoesNotExist:
         raise Http404("Vaga não existe")
+    except MultipleObjectsReturned:
+        raise Http404("Devolveu mais de um objeto")
 
 @login_required
 @user_passes_test(is_professor)
@@ -77,6 +82,8 @@ def candidato_selecionado(request, pk_aluno, pk_vaga):
         raise Http404("Vaga não existe")
     except Profile.DoesNotExist:
         raise Http404("Aluno não existe")
+    except MultipleObjectsReturned:
+        raise Http404("Devolveu mais de um objeto")
 
 class SolicitudesProfessores(ListView):
     model = Profile
@@ -110,7 +117,8 @@ def ativar_professor(request, pk):
             return redirect_to_login(request.get_full_path())
     except Profile.DoesNotExist:
         raise Http404("Professor não existe")
-
+    except MultipleObjectsReturned:
+        raise Http404("Devolveu mais de um objeto")
 
 class TelaInicial(ListView):
     model = Vaga

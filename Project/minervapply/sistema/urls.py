@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from sistema import views
+from . import views
 
 urlpatterns=[
     url(r'^home/$', views.TelaInicial.as_view(), name = 'tela-inicial'),
@@ -16,6 +16,7 @@ urlpatterns=[
     url(r'^professor_logado/mostrar_candidatos/(?P<pk>[0-9]+)/$', views.mostrar_candidatos, name = 'mostrar-candidatos'),
     url(r'^professor_logado/mostrar_candidatos/(?P<pk_vaga>[0-9]+)/candidato_selecionado/(?P<pk_aluno>[0-9]+)/$', views.candidato_selecionado, name = 'candidato-selecionado'),
     url(r'^candidatarse/(?P<pk>[0-9]+)/$', views.candidatarse, name = 'candidatarse'),
+    url(r'^aluno_candidatadas/$', views.aluno_candidatadas, name = 'aluno-candidatadas'),
 
 
     # url(r'^pesquisar_aluno(?P<pk>[0-9]+)/$', views.TelaInicial.as_view(), name = 'tela-inicial'),

@@ -2,71 +2,22 @@
 
 {% load static%}
 
-{% block title %}Minervapply-Index vagas{% endblock %}
+{% block title %}Minervapply | HOME {% endblock %}
 
 {% block content %}
 
 {% for vaga in object_list %}
-<div>
+  <li>
+    <p class="date">{{vaga.data_publicacao.month}}<b>{{vaga.data_publicacao.day}}</b></p>
+    <h3>{{vaga.titulo }}</h3>
+    <p>Tipo da vaga: {{vaga.tipo}}</p>
+    <p>Local: {{vaga.local}}</p>
+    <p>Professor responsável: {{vaga.professor_responsavel}}</p>
+    <p>Prazo de aplicação: {{vaga.prazo_de_aplicacao}}</p>
+    <p>Publicada em: {{vaga.data_publicacao}}</p>
+    <p>Remuneração: R$ {{vaga.remuneracao}}</p>
+    <a href="{% url 'candidatarse' vaga.pk %}" title="Candidatarse para esta vaga"><input type="button" value="Candidatarse para esta vaga"></a>
+  </li>
+    {% endfor %}
 
-    <table align="center" id='caixa'>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+2">
-                    {{vaga.titulo}}
-                </font>
-            </td>
-        </tr>
-
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Tipo da vaga: {{vaga.tipo}}
-                </font>
-            </td>
-            <td align="right">
-                <img src="{% static "sistema/poli.png " %}" width=70px alt=" poli.png ">
-            </td>
-        </tr>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Local: {{vaga.local}}
-                </font>
-            </td>
-        </tr>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Professor responsável: {{vaga.professor_responsavel}}
-                </font>
-            </td>
-        </tr>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Prazo de aplicação: {{vaga.prazo_de_aplicacao}}
-                </font>
-            </td>
-        </tr>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Publicada em: {{vaga.data_publicacao}}
-                </font>
-            </td>
-        </tr>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+1">
-                    Remuneração: R$ {{vaga.remuneracao}}
-                </font>
-            </td>
-            <td align="right">
-                <a href="{% url 'candidatarse' vaga.pk %}" title="Candidatarse para esta vaga">
-                    <input type="button" value="Candidatarse para esta vaga">
-                </a>
-            </td>
-        </tr>
-    </table>
-    {% endfor %} {% endblock %}
+  {% endblock %}

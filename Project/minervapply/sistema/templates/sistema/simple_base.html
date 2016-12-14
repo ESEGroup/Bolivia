@@ -22,7 +22,12 @@ Released   : 20130902
 <meta name="description" content="" />
 <link href="{% static "sistema/style/default.css" %}" rel="stylesheet" type="text/css" media="all" />
 <link href="{% static "sistema/style/fonts.css" %}" rel="stylesheet" type="text/css" media="all" />
-
+<style>ul.style1 li
+{
+  padding: 1.6em 0em 0em 0em;
+  margin: 0 0 0.5em 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}</style>
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 </head>
 <body>
@@ -39,8 +44,6 @@ Released   : 20130902
 			<ul>
         {% if user.is_anonymous %}
           <li class="current_page_item"><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'cadastrar-professor' %}">Cadastro Professor</a></li>
-          <li><a href="{% url 'cadastrar-aluno' %}">Cadastro Aluno</a></li>
         {% endif %}
         {% if user.profile.is_professor %}
           <li class="current_page_item"><a href="{% url 'atualizar-professor' %}" title="Exibir o seu perfil">Professor: {{ user }}</a></li>
@@ -52,9 +55,6 @@ Released   : 20130902
 				<li><a href="{% url 'adicionar-vaga' %}">Ofertar Vaga</a></li>
 				<li><a href="{% url 'professor-logado' %}">Minhas Vagas</a></li>
         {% endif %}
-        {% if user.profile.chefe_departamento %}
-        <li><a href="{% url 'solicitudes-professores' %}">Solicitudes Professores</a></li>
-        {% endif %}
         {% if user.profile.is_aluno%}
 				<li><a href="{% url 'aluno-candidatadas' %}" title="Vagas solicitadas"> Vagas Solicitadas</a></li>
         {% endif %}
@@ -65,9 +65,6 @@ Released   : 20130902
 		</div>
 	</div>
 	<div id="main">
-		<div id="banner">
-			<img src="{% static "sistema/MinervApply02.png" %}" alt="" class="image-full" >
-		</div>
 		<div id="featured">
 			<!-- <div class="title">
 				<h2>Maecenas lectus sapien</h2>
@@ -83,11 +80,6 @@ Released   : 20130902
         {% endblock %}
 			</ul>
 		</div>
-		<div id="copyright">
-			<span>&copy; Minervapply. All rights reserved. | Created by <a href="https://github.com/ESEGroup/Bolivia">Time Bolivia</a></span>
-			<span>Template based on a creation by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</span>
-		</div>
-	</div>
   {% if messages %}
   <div id="myModal" class="modal">
     <!-- Modal content -->
