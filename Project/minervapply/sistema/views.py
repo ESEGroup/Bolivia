@@ -10,6 +10,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import MultipleObjectsReturned
 
 from .forms import *
 from .urls import *
@@ -40,7 +41,6 @@ def candidatarse(request,pk):
 @user_passes_test(is_aluno)
 def aluno_candidatadas(request):
     aluno = request.user.profile
-    """Dar uma olhada a isso aqui"""
     lista_vagas_candidatadas = Vaga.objects.filter(candidatos = aluno)
     return render(request, 'sistema/aluno_candidatadas.html', {'lista_vagas_candidatadas': lista_vagas_candidatadas,'aluno': aluno})
 
@@ -111,7 +111,7 @@ def ativar_professor(request, pk):
         if request.user.profile.departamento == prof.departamento:
             prof.user.is_active = True
             prof.user.save()
-            messages.success(request,'Professor ativado com succeso')
+            messages.success(request,'Professor %s ativado com succeso' %prof.user.first_name)
             return redirect(reverse('solicitudes-professores'))
         else:
             return redirect_to_login(request.get_full_path())
@@ -178,7 +178,7 @@ def create_professor_view(request):
             user.profile.is_professor = True
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
             profile_form.save()  # Gracefully save the form
-            messages.success(request,'Your profile was successfully updated!')
+            messages.success(request,'O cadastro foi completo com sucesso, mas não poderá fazer login até o coordenador de seu departamento confirmar seu cadastro.')
             return redirect(reverse('tela-inicial'))
     else:
         user_form = UserCreationForm()

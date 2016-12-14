@@ -5,18 +5,21 @@
 {% block title %}Minervapply | Vagas Publicadas {% endblock %}
 
 {% block content %}
+
 {% for vaga in object_list %}
   <li>
-    <p class="date">{{vaga.data_publicacao.month}}<b>{{vaga.data_publicacao.day}}</b></p>
+    <p class="date">{{vaga.data_publicacao.date}}</p>
     <h3>{{vaga.titulo }}</h3>
     <p>Tipo da vaga: {{vaga.tipo}}</p>
     <p>Local: {{vaga.local}}</p>
     <p>Professor responsável: {{vaga.professor_responsavel}}</p>
     <p>Prazo de aplicação: {{vaga.prazo_de_aplicacao}}</p>
-    <p>Publicada em: {{vaga.data_publicacao}}</p>
     <p>Remuneração: R$ {{vaga.remuneracao}}</p>
-    <a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga "><input type="button" value="Editar Vaga"></a>
-    <a href="{% url 'mostrar-candidatos' vaga.pk %}" title="Visualize os candidatos de essa vaga"><input type="button" value="Visualizar Candidatos"></a>
+    <p><a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga "><input type="button" value="Editar Vaga"></a></p>
+    <p><a href="{% url 'mostrar-candidatos' vaga.pk %}" title="Visualize os candidatos de essa vaga"><input type="button" value="Visualizar Candidatos"></a></p>
   </li>
-  {% endfor %}
-  {% endblock %}
+{% empty %}
+    <h1>Nenhuma vaga publicada</h1>
+{% endfor %}
+
+{% endblock %}

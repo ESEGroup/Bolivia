@@ -55,6 +55,6 @@ class Vaga(models.Model):
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel = models.ForeignKey('Profile', null=True)
     candidatos = models.ManyToManyField(Profile, related_name='+',null = True, blank = True)
-    candidato_selecionado = models.OneToOneField(Profile,related_name='+',null =  True, blank = True)
+    candidato_selecionado = models.ForeignKey(Profile,related_name='+',null =  True, blank = True)
     def __str__(self):
         return self.titulo
