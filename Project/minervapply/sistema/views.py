@@ -95,7 +95,7 @@ class SolicitudesProfessores(ListView):
     def dispatch(self, *args, **kwargs):
         return super(SolicitudesProfessores, self).dispatch(*args, **kwargs)
     def get_queryset(self):
-        return User.objects.filter(is_active = False, profile__is_professor = True, profile__curso = self.request.user.profile.curso)
+        return User.objects.filter(is_active = False, profile__is_professor = True, profile__departamento = self.request.user.profile.departamento)
 
 
 # def mesmo_departamento(self, request):
