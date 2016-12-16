@@ -48,6 +48,10 @@ Released   : 20130902
         {% if user.profile.is_aluno %}
           <li class="current_page_item"><a href="{% url 'atualizar-aluno' %}" title="Exibir o seu perfil">Aluno: {{ user }}</a></li>
         {% endif %}
+        {% if user.profile.is_admin %}
+        <li><a href="{% url 'cadastrar-coordenador' %}">Cadastrar Coordenador De Curso</a></li>
+        <li><a href="{% url 'lista-coordenadores' %}">Lista Coordenadores De Curso</a></li>
+        {% endif %}
         {% if user.profile.is_professor %}
 				<li><a href="{% url 'adicionar-vaga' %}">Ofertar Vaga</a></li>
 				<li><a href="{% url 'professor-logado' %}">Minhas Vagas</a></li>

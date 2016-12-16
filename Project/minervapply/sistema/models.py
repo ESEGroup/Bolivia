@@ -15,6 +15,7 @@ class Profile(models.Model):
     telefone = models.CharField(max_length=20,default='0000-0000')
     is_aluno = models.BooleanField(default=False)
     is_professor = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     #Atributos exclusivos de Professor
     registro_ufrj = models.CharField(max_length=9, default='000000000')
     departamento = models.CharField(max_length=200, default='nome_departamento')
@@ -54,7 +55,7 @@ class Vaga(models.Model):
     prazo_de_aplicacao = models.DateField(default=timezone.now)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel = models.ForeignKey('Profile', null=True)
-    candidatos = models.ManyToManyField(Profile, related_name='+',null = True, blank = True)
+    candidatos = models.ManyToManyField(Profile, related_name='+', blank = True)
     candidato_selecionado = models.ForeignKey(Profile,related_name='+',null =  True, blank = True)
     def __str__(self):
         return self.titulo

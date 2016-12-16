@@ -17,6 +17,9 @@ urlpatterns=[
     url(r'^professor_logado/mostrar_candidatos/(?P<pk_vaga>[0-9]+)/candidato_selecionado/(?P<pk_aluno>[0-9]+)/$', views.candidato_selecionado, name = 'candidato-selecionado'),
     url(r'^candidatarse/(?P<pk>[0-9]+)/$', views.candidatarse, name = 'candidatarse'),
     url(r'^aluno_candidatadas/$', views.aluno_candidatadas, name = 'aluno-candidatadas'),
+    url(r'^cadastrar_coordenador/$', views.create_coordenador_view, name = 'cadastrar-coordenador'),
+    url(r'^lista_coordenadores/$', views.lista_coordenadores, name = 'lista-coordenadores'),
+    url(r'^apagar_perfil/(?P<pk>[0-9]+)$', views.Apagar_Perfil.as_view(), name='apagar-perfil'),
 
 
     # url(r'^pesquisar_aluno(?P<pk>[0-9]+)/$', views.TelaInicial.as_view(), name = 'tela-inicial'),
