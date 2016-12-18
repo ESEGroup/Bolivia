@@ -2,31 +2,19 @@
 
 {% load static%}
 
-{% block title %}Minervapply-Index vagas{% endblock %}
+{% block title %} Minervapply | Solicitudes Professores {% endblock %}
 
 {% block content %}
 
-
+<h1>Professores inativos do departamento: {{user.profile.departamento}}</h1>
 <br>
-<br>
-Mostrando professores inativos do curso: {{user.profile.curso}}
-<br>
-<br>
-{% for usuario in object_list %}
-<div>
-    <table align="center" id='caixa'>
-        <tr>
-            <td align="left">
-                <font color="#04B486" face="UBUNTU" size="+2">
-                    {{usuario}}
-                </font>
-            </td>
-        </tr>
-        <td align="right">
-            <a href="{% url 'ativar-professor' usuario.id %}" title="Ativar Professor">
-                <input type="button" value="AtivarProfessor">
-            </a>
-        </td>
-    </table>
-</div>
-    {% endfor %} {% endblock %}
+{% for professor in object_list %}
+  <li>
+    <p>{{professor.first_name}} {{professor.last_name}}</p>
+    <p>Email: {{professor.email}}</p>
+    <p>Registro UFRJ: {{professor.profile.registro_ufrj}}</p>
+    <p><a href="{% url 'ativar-professor' professor.pk %}" title="Ativar Professor">
+      <input type="button" value="AtivarProfessor"></a></p>
+  </li>
+{% endfor %}
+{% endblock %}

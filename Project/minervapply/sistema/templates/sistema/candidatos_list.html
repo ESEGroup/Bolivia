@@ -1,28 +1,22 @@
-{% extends "sistema/base.html" %}
+{% extends "sistema/simple_base.html" %}
 
 {% load static%}
 
-{% block title %}Minervapply-Lista Candidatos{% endblock %}
+{% block title %} Minervapply | Lista Candidatos {% endblock %}
 
 {% block content %}
-
 {% for candidato in lista_candidatos %}
-
-<table align="center" id='caixa'>
-    <tr>
-        <td align="left">
-            <font color="#04B486" face="UBUNTU" size="+2">
-                {{candidato}}
-            </font>
-        </td>
-        <td align="right">
-        {% if vaga.candidato_selecionado == None %}
-        <a href="{% url 'candidato-selecionado' vaga.pk candidato.pk %}" title="Selecionar candidato">
-            <input type="button" value="Selecionar candidato">
-        </a>
-        {% elif vaga.candidato_selecionado == candidato %} <p>Candidato selecionado</p>
-        {% endif %}
-        </td>
-    </tr>
-
-{% endfor %} {% endblock %}
+  <li>
+    {{candidato}}
+    <div align = 'center'>
+    {% if vaga.candidato_selecionado == None %}
+    <a href="{% url 'candidato-selecionado' vaga.pk candidato.pk %}" title="Selecionar candidato">
+      <input type="button" value="Selecionar candidato"></a>
+    {% elif vaga.candidato_selecionado == candidato %}
+      Candidato selecionado
+    {% endif %}
+  </div>
+  {% empty %}
+      <h1>Nenhum aluno se candidatou ainda</h1>
+{% endfor %}
+{% endblock %}

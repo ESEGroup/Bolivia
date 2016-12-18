@@ -1,0 +1,328 @@
+{% load static %}
+
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+    /* The Modal (background) */
+.modal {
+    display : "block";
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color:#04B486;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #04B486;
+    color: white;
+}
+</style>
+</head>
+
+<body style="background-color:#DBECE4;">
+    <style type='text/css'>
+        #bar {
+            position: fixed !important;
+            background: #04B486;
+            width: 100%;
+            height: 50px;
+            z-index: 300;
+            top: 0px;
+            padding: 0;
+            left: 0px;
+            font-family: UBUNTU;
+        }
+
+        #logo {
+            position: fixed !important;
+            width: 12%;
+            height: 52px;
+            z-index: 300;
+            top: 50px;
+            padding: 0;
+            left: 2%;
+            font-family: UBUNTU;
+        }
+
+        #caixa {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #F4FCF9;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+            float: middle;
+        }
+
+        #caixa:hover {
+            width: 50%;
+            height: auto;
+            padding: 8px;
+            background-color: #DFE4E2;
+            box-shadows: 10 2px 5px #000;
+            text-align: justify;
+        }
+
+        .menuIcon {
+            position: absolute;
+            float: hight;
+            top: 0px;
+            margin-left: 1%;
+        }
+
+        .menubar {
+            position: absolute;
+            float: hight;
+            top: 10px;
+            left: 20%;
+            margin-left: 35%;
+            color: #FFA;
+            font-size: 14px;
+            font-family: UBUNTU;
+            font-style: normal;
+            font-weight: 300;
+            box-shadow: 0 0 3px rgba(48, 62, 100, 0.2);
+        }
+
+        .menubar a {
+            text-decoration: none;
+            color: #FFF;
+            top: -5px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .menubar a:hover {
+            text-decoration: underline;
+            background: rgba(48, 62, 100, 0.2);
+            top: 0px;
+            padding-top: 7px;
+            padding-bottom: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #pagelogo {
+            float: left;
+            z-index: 5;
+        }
+
+        B {
+            font: UBUNTU;
+            font-size: 20px;
+            color: #FFF;
+            margin-top: 6px;
+            margin-left: 50px;
+        }
+    </style>
+    <div id='bar'>
+        <table align="left">
+            <td align="left">
+                <a href="{% url 'tela-inicial' %}" title="Página em Portugués">
+                    <img src="{% static "sistema/buttonBrazil.png" %}" width=25px alt="brasil">
+                </a>
+                <a href="{% url 'tela-inicial' %}" title="Page in English">
+                    <img src="{% static "sistema/buttonUSA.png" %}" width=25px>
+                </a>
+                <a href="{% url 'tela-inicial' %}" title="Página en Español">
+                    <img src="{% static "sistema/buttonSpain.png" %}" width=25px>
+                </a>
+                <a href="{% url 'tela-inicial' %}" title="Pagina in Italiano">
+                    <img src="{% static "sistema/buttonItaly.png" %}" width=25px>
+                </a>
+            </td>
+        </table>
+        <span class='menuIcon'>
+			<table align="left">
+				<td align="left">
+					<a href="{% url 'tela-inicial' %}" title="MinervApply">
+						<img src="{% static "sistema/MinervApply05.png" %}" width=40px>
+					</a>
+				</td>
+				<td align="left">
+					<!-- <form action="{#% url 'pesquisar-aluno'%#}" class="search" method="get">
+						<font color="black" face="UBUNTU" size="5">
+							<input class="searchbar" id="search" name="quest" type="text" value="" size=30% placeholder="Pesquisar Usu&aacute;rio">
+							<input class="searchbut" type="submit" value="&#8227;" />
+						</font> -->
+					</form>
+				</td>
+			</table>
+		</span>
+        <span class='menubar'>
+  <table align="right">
+  {% if user.profile.is_professor %}
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'adicionar-vaga'%}" >
+          Ofertar Vaga
+        </a>
+      </font>
+    </td>
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'professor-logado' %}" >
+          Minhas Vagas
+        </a>
+      </font>
+    </td>
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'atualizar-professor' %}" title="Exibir o seu perfil"> Professor: {{ user }} </a>
+      </font>
+    </td>
+    {% endif %}
+    {% if user.profile.is_aluno%}
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'atualizar-aluno' %}" title="Exibir o seu perfil"> Aluno: {{ user }} </a>
+      </font>
+    </td>
+    <td align="right">
+      <font color="white" face="UBUNTU" size="+1">
+        <a href="{% url 'aluno-candidatadas' %}" title="Vagas solicitadas"> Vagas Solicitadas</a>
+      </font>
+    </td>
+
+    {% endif %}
+    <td align="right">
+    <font color="white" face="UBUNTU" size="+1">
+      {% if user.is_anonymous %}
+    <a href="{% url 'login' %}">Login</a>
+    {% else %}
+    <a href="{% url 'logout' %}">Logout</a>
+  {% endif %}
+
+
+    </td>
+  </table>
+</span>
+    </div>
+    <!-- <div id='logo'>
+        <table align="left">
+            <td align="left">
+                <img src="{% static "sistema/MinervApply02.png " %}" width=100%>
+            </td>
+        </table>
+    </div> -->
+    <br>
+    <br>
+    <br>
+    <div  id = "content">
+        {% block content %} {% endblock %}
+    </div>
+
+{% if messages %}
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Minervapply</h2>
+    </div>
+    <div class="modal-body">
+      {% for message in messages %}
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+    </div>
+    <!-- <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div> -->
+  </div>
+{% endif %}
+</div>
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// // Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+
+</html>

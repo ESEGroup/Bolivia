@@ -1,8 +1,9 @@
-{% extends "sistema/base.html" %}
+{% extends "sistema/simple_base.html" %}
 
-{% block title %}Login{% endblock %}
+{% block title %} Minervapply | Login {% endblock %}
 
 {% block content %}
+<h3>login</h3>
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
@@ -19,21 +20,10 @@
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
-
-<table align="center" id='caixa'>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-<tr>
-<td><input type="submit" value="login" /></td>
-<td><input type="hidden" name="next" value="{{ next }}" /></td>
-</tr>
-</table>
+<li>{{ form.username.label_tag }}{{ form.username }}</li>
+<li>{{ form.password.label_tag }}{{ form.password }}</li>
+<li><input type="submit" value="login" /></li>
+<li><input type="hidden" name="next" value="{{ next }}" /></li>
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
