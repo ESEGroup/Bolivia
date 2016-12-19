@@ -1,0 +1,31 @@
+{% extends "sistema/base.html" %}
+
+{% load static%}
+
+{% block title %} Minervapply | Minhas Vagas Candidatadas {% endblock %}
+
+{% block content %}
+
+{% for vaga in lista_vagas_candidatadas %}
+<li>
+  <p class="date">{{vaga.data_publicacao.date}}</p>
+  <h3>{{vaga.titulo }}</h3>
+  <p>Tipo da vaga: {{vaga.tipo}}</p>
+  <p>Local: {{vaga.local}}</p>
+  <p>Professor responsável: {{vaga.professor_responsavel}}</p>
+  <p>Prazo de aplicação: {{vaga.prazo_de_aplicacao}}</p>
+  <p>Remuneração: R$ {{vaga.remuneracao}}</p>
+  <p><b>
+    {% if vaga.candidato_selecionado == aluno%}
+      Voce foi selecionado para esta vaga!!
+    {% elif vaga.candidato_selecionado %}
+      Um outro aluno foi selecionado para esta vaga
+    {% else %}
+      Nenhum aluno foi ainda selecionado
+    {% endif %}
+  </b></p>
+</li>
+{% empty %}
+    <h1>Você ainda não se candidatou para nenhuma vaga</h1>
+{% endfor %}
+{% endblock %}

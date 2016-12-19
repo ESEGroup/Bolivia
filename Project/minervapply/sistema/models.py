@@ -8,35 +8,29 @@ from django.dispatch import receiver
 
 
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     data_nascimento = models.DateField(null=True, blank=True)
     telefone = models.CharField(max_length=20,default='0000-0000')
-
     is_aluno = models.BooleanField(default=False)
     is_professor = models.BooleanField(default=False)
-
+    is_admin = models.BooleanField(default=False)
     #Atributos exclusivos de Professor
     registro_ufrj = models.CharField(max_length=9, default='000000000')
     departamento = models.CharField(max_length=200, default='nome_departamento')
     url = models.URLField(default='www.default.com')
     chefe_departamento = models.BooleanField(default=False)
-
     #Atributos exclusivos de aluno
     curso = models.CharField(max_length=200, default='curso')
     dre = models.CharField(max_length=9, default='000000000')
-
-
-
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
-
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
     def __str__(self):
         return self.user.username
 
@@ -61,11 +55,7 @@ class Vaga(models.Model):
     prazo_de_aplicacao = models.DateField(default=timezone.now)
     tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
     professor_responsavel = models.ForeignKey('Profile', null=True)
-    candidatos = models.ManyToManyField(Profile, related_name='+',null = True, blank = True)
-    candidato_selecionado = models.OneToOneField(Profile,related_name='+',null =  True, blank = True)
-
-    # def get_data_publicacao(self):
-    #     return self.data_publicacao
-
+    candidatos = models.ManyToManyField(Profile, related_name='+', blank = True)
+    candidato_selecionado = models.ForeignKey(Profile,related_name='+',null =  True, blank = True)
     def __str__(self):
         return self.titulo

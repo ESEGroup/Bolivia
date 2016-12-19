@@ -1,0 +1,21 @@
+{% extends "sistema/base.html" %}
+
+{% load static%}
+
+{% block title %} Minervapply | Lista Coordenadores{% endblock %}
+
+{% block content %}
+
+{% for coordenador in lista_coordenadores %}
+<li>
+  <p>{{coordenador.first_name}} {{coordenador.last_name}}</p>
+  <p>Email: {{coordenador.email}}</p>
+  <p>Departamento: {{coordenador.profile.departamento}}</p>
+  <p>Registro UFRJ: {{coordenador.profile.registro_ufrj}}</p>
+  <p><a href="{% url 'apagar-perfil' coordenador.pk %}" title="Apagar Professor">
+    <input type="button" value="Apagar Professor"></a></p>
+</li>
+
+{% endfor %}
+
+{% endblock %}

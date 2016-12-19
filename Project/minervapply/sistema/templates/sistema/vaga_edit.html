@@ -1,20 +1,13 @@
- {% extends "sistema/base.html" %}
+ {% extends "sistema/simple_base.html" %}
  {% load staticfiles%}
 
- {% block title %}Minervapply-Editar vaga{% endblock %}
+ {% block title %} Minervapply | Editar vaga {% endblock %}
 
  {% block content %}
-
-
-<form align="center" action="" method="post"> {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Atualizar vaga" />
+<li align="right" ><a href="{% url 'apagar-vaga' vaga.id %}" title="Apagar esta Vaga"><input type="button" value="Apagar vaga"></a></li>
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form.as_ul }}
+  <li><input type="submit" value="Atualizar vaga" /></li>
 </form>
-<br>
-<p align="center">
-    <a href="{% url 'apagar-vaga' vaga.id %}" title="Apagar esta Vaga">
-        <input type="button" value="Apagar vaga">
-    </a>
-</p>
-
 {% endblock %}

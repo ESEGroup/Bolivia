@@ -1,21 +1,13 @@
-{% extends "sistema/base.html" %}
+{% extends "sistema/simple_base.html" %}
+{% block title %} Minervapply | Criar Perfil {% endblock %}
+
 
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
-
+<h3>Cadastro de usuario</h3>
 <form method="post">
   {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
+  {{ user_form.as_ul }}
+  {{ profile_form.as_ul }}
   <button type="submit">Save changes</button>
 </form>
 {% endblock %}

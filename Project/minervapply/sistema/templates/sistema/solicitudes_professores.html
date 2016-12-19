@@ -12,7 +12,7 @@
   <li>
     <p>{{professor.first_name}} {{professor.last_name}}</p>
     <p>Email: {{professor.email}}</p>
-    <p>Registro UFRJ: {{professor.profile.registro_ufrj}}</p>
+    <p>Registro UFRJ: {{professor.profile.registro_ufrj}}</p> 
     <p><a href="{% url 'ativar-professor' professor.profile.pk %}" title="Ativar Professor">
       <input type="button" value="AtivarProfessor"></a></p>
   </li>

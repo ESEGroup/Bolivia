@@ -1,27 +1,15 @@
-{% extends "sistema/base.html" %}
-
+{% extends "sistema/simple_base.html" %}
+{% block title %} Minervapply | Atualizar Perfil {% endblock %}
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
 
 <form method="post">
+  <h3>Editar meu perfil</h3>
   {% csrf_token %}
-  {{ user_form.as_p}}
-  {{ profile_form.as_p }}
-  <button type="submit">Save changes</button>
+  {{ user_form.as_ul}}
+  {{ profile_form.as_ul }}
+  <li><button type="submit">Save changes</button></li>
 </form>
-<br>
-<br>
-<br>
 <form action="{% url 'password_change' %}">
-    <input type="submit" value="Change Password" />
+    <li><input type="submit" value="Change Password" /></li>
 </form>
 {% endblock %}
