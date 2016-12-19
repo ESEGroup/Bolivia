@@ -25,7 +25,7 @@ SECRET_KEY = 's00om6qx4-o+b%_4148_4po2p$1y!a81i*yj0k=+pw_mw_0l@%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['timeboliviasoftware.pythonanywhere.com',]
 
 
 # Application definition
