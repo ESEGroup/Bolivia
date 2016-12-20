@@ -10,6 +10,9 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
+    """ Modelo Profile asociado a um usuario, a diferenciação entre classes de
+     atributos e feita mediante os atributos is_aluno, is_professor, is_admin e
+     chefe_departamento """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     data_nascimento = models.DateField(null=True, blank=True)
     telefone = models.CharField(max_length=20,default='0000-0000')
@@ -24,6 +27,8 @@ class Profile(models.Model):
     #Atributos exclusivos de aluno
     curso = models.CharField(max_length=200, default='curso')
     dre = models.CharField(max_length=9, default='000000000')
+    """ Cada vez que um usuario de django seja criado, cria um Profile
+    asociado a ele  """
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -37,6 +42,7 @@ class Profile(models.Model):
 
 
 class Vaga(models.Model):
+    """ Informaçao de uma vaga ofertada por um professor para os alunos """
     IC='IC'
     ESTAGIO_EXT = 'EE'
     ESTAGIO_INT = 'EI'
@@ -53,9 +59,11 @@ class Vaga(models.Model):
     local = models.CharField(max_length=200,default='local')
     data_publicacao = models.DateTimeField(default=timezone.now)
     prazo_de_aplicacao = models.DateField(default=timezone.now)
-    tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES, default=ESTAGIO_EXT)
+    tipo = models.CharField(max_length=4, choices = BOLSA_CHOICES,
+                            default=ESTAGIO_EXT)
     professor_responsavel = models.ForeignKey('Profile', null=True)
     candidatos = models.ManyToManyField(Profile, related_name='+', blank = True)
-    candidato_selecionado = models.ForeignKey(Profile,related_name='+',null =  True, blank = True)
+    candidato_selecionado = models.ForeignKey(Profile,related_name='+',
+                                              null = True, blank = True)
     def __str__(self):
         return self.titulo

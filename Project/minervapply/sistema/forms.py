@@ -5,14 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
 
-# class PickyAuthenticationForm(AuthenticationForm):
-#     def confirm_login_allowed(self, user):
-#         if not user.is_active:
-#             raise forms.ValidationError(
-#                 _("This account is inactive."),
-#                 code='inactive',
-#             )
-
 def validarDre(dre):
     if len(dre) != 9:
         return False

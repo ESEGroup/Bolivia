@@ -4,7 +4,8 @@
  {% block title %} Minervapply | Editar vaga {% endblock %}
 
  {% block content %}
-<li align="right" ><a href="{% url 'apagar-vaga' vaga.id %}" title="Apagar esta Vaga"><input type="button" value="Apagar vaga"></a></li>
+<li align="right" ><a href="{% url 'apagar-vaga' vaga.id %}" title="Apagar esta Vaga">
+  <input type="button" value="Apagar vaga"></a></li>
 <form action="" method="post">
   {% csrf_token %}
   {{ form.as_ul }}

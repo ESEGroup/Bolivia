@@ -15,7 +15,8 @@
     <p>Professor responsável: {{vaga.professor_responsavel}}</p>
     <p>Prazo de aplicação: {{vaga.prazo_de_aplicacao}}</p>
     <p>Remuneração: R$ {{vaga.remuneracao}}</p>
-    <p><a href="{% url 'candidatarse' vaga.pk %}" title="Candidatarse para esta vaga"><input type="button" value="Candidatarse para esta vaga"></a></p>
+    <p><a href="{% url 'candidatarse' vaga.pk %}" title="Candidatarse para esta vaga">
+      <input type="button" value="Candidatarse para esta vaga"></a></p>
   </li>
   {% empty %}
       <h1>Nenhuma vaga publicada</h1>

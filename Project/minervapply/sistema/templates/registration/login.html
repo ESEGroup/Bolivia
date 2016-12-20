@@ -6,27 +6,26 @@
 <h3>login</h3>
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<p>Usuario e/ou senha não validos. Por favor tentar de novo.</p>
+<p>Se está tentando de fazer logon com perfil de professor pode ser que ainda
+  não tenha sido ativo pelo seu chefe de departamento.</p>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>Seu pefil não tem acesso a esta seção. Para continuar, fazer login com
+       uma conta valida.</p>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Por favor, fazer login para visualizar esta pagina.</p>
     {% endif %}
 {% endif %}
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
-<li>{{ form.username.label_tag }}{{ form.username }}</li>
-<li>{{ form.password.label_tag }}{{ form.password }}</li>
+<li>{{ form.username.label_tag }}  {{ form.username }}</li>
+<li>{{ form.password.label_tag }}  {{ form.password }}</li>
 <li><input type="submit" value="login" /></li>
-<li><input type="hidden" name="next" value="{{ next }}" /></li>
+<input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-{#<p><a href="{% url 'password_reset' %}">Lost password?</a></p> #}
 
 {% endblock %}

@@ -7,9 +7,9 @@
   {% csrf_token %}
   {{ user_form.as_ul}}
   {{ profile_form.as_ul }}
-  <li><button type="submit">Save changes</button></li>
+  <li><button type="submit">Salvar Mudanças</button></li>
 </form>
 <form action="{% url 'password_change' %}">
-    <li><input type="submit" value="Change Password" /></li>
+    <li><input type="submit" value="Mudar Senha" /></li>
 </form>
 {% endblock %}

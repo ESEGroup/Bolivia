@@ -5,7 +5,7 @@
 
   {% block content %}
   <form align= "center" action="" method="post">{% csrf_token %}
-        <h2>Are you sure you want to delete {{ object }}?</h2>
-        <li><input type="submit" value="Confirm"/></li>
+        <h2>Tem certeza de querer apagar {{ object }}?</h2>
+        <li><input type="submit" value="Confirmar"/></li>
     </form>
   {% endblock %}

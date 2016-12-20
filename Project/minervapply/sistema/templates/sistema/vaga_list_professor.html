@@ -15,8 +15,10 @@
     <p>Professor responsável: {{vaga.professor_responsavel}}</p>
     <p>Prazo de aplicação: {{vaga.prazo_de_aplicacao}}</p>
     <p>Remuneração: R$ {{vaga.remuneracao}}</p>
-    <p><a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga "><input type="button" value="Editar Vaga"></a></p>
-    <p><a href="{% url 'mostrar-candidatos' vaga.pk %}" title="Visualize os candidatos de essa vaga"><input type="button" value="Visualizar Candidatos"></a></p>
+    <p><a href="{% url 'atualizar-vaga' vaga.id %}" title="Editar a vaga ">
+      <input type="button" value="Editar Vaga"></a></p>
+    <p><a href="{% url 'mostrar-candidatos' vaga.pk %}" title="Visualize os candidatos de essa vaga">
+      <input type="button" value="Visualizar Candidatos"></a></p>
   </li>
 {% empty %}
     <h1>Nenhuma vaga publicada</h1>
