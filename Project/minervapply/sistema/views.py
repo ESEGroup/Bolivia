@@ -372,6 +372,7 @@ def lista_coordenadores(request):
                   {'lista_coordenadores': lista_coordenadores})
 
 class Apagar_Perfil(SuccessMessageMixin,DeleteView):
+    """ Apaga um Profile + User do database """
     model = User
     success_url = reverse_lazy('tela-inicial')
     template_name = 'sistema/user_confirm_delete.html'
